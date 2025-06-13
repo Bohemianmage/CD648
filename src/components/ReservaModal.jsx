@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReservaCalendar from './ReservaCalendar';
-import { obtenerHabitaciones, reservasMock } from '../utils/data';
+import { obtenerHabitaciones } from '../utils/data';
 import { preciosMock, calcularTotal } from '../utils/precios';
 import { useReserva } from '../context/ReservaContext';
 import { parseISO, eachDayOfInterval } from 'date-fns';
@@ -28,9 +28,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const refCalendario = useRef(null);
   const refPago = useRef(null);
 
-  const reservasFiltradas = reservasMock.filter(
-    (r) => String(r.habitacionId) === habitacionSeleccionada
-  );
+  const [reservasOcupadas, setReservasOcupadas] = useState([]);
 
   const precioBase = preciosMock[habitacionSeleccionada] || 0;
   const noches = selectedRange?.from && selectedRange?.to
@@ -70,11 +68,32 @@ export function ReservaModal({ open, onClose, habitacion }) {
     selectedRange?.to &&
     adultos >= 1;
 
+  useEffect(() => {
+    const fetchReservas = async () => {
+      if (!habitacionSeleccionada) return;
+      try {
+        const response = await fetch(
+          `https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=${selectedRange?.from?.toISOString()}&fin=${selectedRange?.to?.toISOString()}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setReservasOcupadas(data);
+        }
+      } catch (err) {
+        console.error('Error al obtener reservas ocupadas', err);
+      }
+    };
+
+    if (selectedRange?.from && selectedRange?.to) {
+      fetchReservas();
+    }
+  }, [habitacionSeleccionada, selectedRange]);
+
   const fechasRango = selectedRange?.from && selectedRange?.to
     ? eachDayOfInterval({ start: selectedRange.from, end: selectedRange.to })
     : [];
 
-  const fechasOcupadas = reservasFiltradas.flatMap((r) =>
+  const fechasOcupadas = reservasOcupadas.flatMap((r) =>
     eachDayOfInterval({ start: parseISO(r.from), end: parseISO(r.to) })
   );
 
@@ -88,10 +107,31 @@ export function ReservaModal({ open, onClose, habitacion }) {
     }
   }, [reservaValida, hayConflicto]);
 
-  const handlePagoExitoso = () => {
-    setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
-    alert(t('reserva.exito'));
-    onClose();
+  const handlePagoExitoso = async () => {
+    try {
+      const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          habitacion: habitacionSeleccionada,
+          inicio: selectedRange?.from,
+          fin: selectedRange?.to,
+          adultos,
+          ninos
+        })
+      });
+
+      if (!res.ok) throw new Error('Error al guardar la reserva.');
+
+      setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
+      alert(t('reserva.exito'));
+      onClose();
+    } catch (err) {
+      console.error(err);
+      alert(t('reserva.errorServidor'));
+    }
   };
 
   if (!open) return null;
@@ -107,6 +147,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
           &times;
         </button>
 
+        {/* Selector visual y calendario */}
         <div className="flex flex-col lg:flex-row items-stretch gap-6 mb-6">
           <div className="flex-1 flex items-center justify-center max-w-full">
             <div className="rounded-lg p-3 sm:p-4 flex flex-col gap-3 min-h-[280px] justify-center w-full">
@@ -189,7 +230,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
                 <ReservaCalendar
                   selected={selectedRange}
                   onSelect={setSelectedRange}
-                  reservasOcupadas={reservasFiltradas}
+                  reservasOcupadas={reservasOcupadas}
                 />
               </div>
             )}
