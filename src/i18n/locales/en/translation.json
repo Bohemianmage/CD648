@@ -1,0 +1,97 @@
+{
+"navbar": {
+        "about": "About",
+	"pictures": "Pictures",
+        "location": "Location",
+        "concierge": "Concierge",
+        "catalog": "Rooms",
+        "cabins": "Cabins",
+        "rules": "Rules",
+        "book": "Book Now"
+      },
+
+
+"catalog": {
+  "title": "Rooms",
+  "book": "Book Now",
+  "rooms": {
+    "1": {
+      "name": "Junior Suite",
+      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar"
+    },
+    "2": {
+      "name": "Master Suite",
+      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar\n - Work area"
+    },
+    "3": {
+      "name": "Suite with Balcony",
+      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar\n - Work area"
+    }
+  }
+},
+
+  "about": {
+    "title": "About CD648",
+    "description": "CD648 is a lodging experience designed for comfort and efficiency in one of Mexico City’s most exclusive areas: Polanco. Our focus is on offering smart stays with digital access, autonomous lockers, and automated check-in."
+  },
+
+  "concierge": {
+    "title": "CONCIERGE",
+    "description": "CD648 is a lodging experience designed for comfort and efficiency in one of Mexico City’s most exclusive areas: Polanco. Our focus is on offering smart stays with digital access, autonomous lockers, and automated check-in."
+  },
+
+  "reserva": {
+    "seleccionaHabitacion": "Select a room",
+    "eligeHabitacion": "-- Choose a room --",
+    "adultos": "Adults",
+    "ninos": "Children",
+    "subtotal": "Subtotal",
+    "personas": "People",
+    "noches": "Nights",
+    "total": "Total",
+    "pagar": "Pay now",
+    "procesando": "Processing payment",
+    "exito": "Successful reservation",
+    "disponibilidad": "Select a room to see availability.",
+    "continuar": "Proceed with reservation",
+    "errorHabitacion": "Please select a room.",
+    "errorFechas": "Please select a date range.",
+    "errorConflicto": "Selected range includes unavailable dates. Please choose another.",
+    "comoLlegar": "Open me in Google Maps"
+  },
+
+"reglamento": {
+  "titulo": "INTERNAL LODGING REGULATIONS",
+  "punto1": "<strong>LEGAL FRAMEWORK.</strong> The relationships arising from lodging services provided to guests of this establishment will be governed by Commercial Law and subsidiarily by applicable Civil Law, the General Tourism Law, its regulations, as well as the Law for the Operation of Commercial Establishments in Mexico City and the current NOM-010-TUR-2001. These provisions are considered binding, known, and accepted by the client, and customary practices in this area will also apply.",
+  "punto2": "<strong>GUEST REGISTRATION AND IDENTIFICATION.</strong> Guests are required to personally complete the registration card or guest book. If the guests are part of a pre-contracted group, their representative must complete the registration cards or submit lists meeting the requirements. The hotel may deny lodging to guests who do not comply with this requirement and may request identification from the applicant and any accompanying persons.",
+  "punto3": "<strong>LODGING DURATION.</strong> The guest must specify on the registration card the number of days they will stay. Lodging fees will be calculated from 3:01 p.m. of one day to 12:00 p.m. of the next day, with a 60-minute grace period to vacate the room completely.",
+  "punto4": "<strong>GUEST OBLIGATIONS AND PAYMENT.</strong> Guests must pay in advance daily or when requested by the hotel. Alternatively, they may guarantee payment by signing a voucher from an accepted credit card. If the guest checks out after 1:01 p.m. on their departure date, they must pay for an additional night. Failure to pay results in cancellation of lodging services, and the hotel may request public force to vacate the room and may retain luggage as collateral according to Article 2669 of the Civil Code for Mexico City, with an inventory signed by two unionized and two trusted employees. This is also subject to Articles 230 and 231, section IV of the current Penal Code for Mexico City.",
+  "punto5": "Guests are strictly prohibited from: <br />A) Making loud noises, causing disturbances, bringing musicians, or animals, and in general, any acts that disturb or bother other guests. <br />B) Using rooms for gambling prohibited by law or holding meetings that disrupt public order or violate laws or regulations. <br />C) Using electrical current and mechanical equipment for purposes other than their intended use. <br />D) Damaging furniture, decor, or property by using them improperly. <br />E) Engaging in any act that harms the hotel or other guests or that is indecent or socially inappropriate. The hotel reserves the right to terminate lodging service if these rules are violated, with no obligation to offer a refund, and the guest must compensate any damage caused. <br />F) Smoking is strictly prohibited within the establishment, in accordance with the Health Protection Law for Non-Smokers in Mexico City. <br />G) Guests must follow the hotel’s hygiene protocol for COVID-19 prevention. Failure to do so may be reported to authorities under Article 159 of the Penal Code for Mexico City as a public health threat.",
+  "punto6": "If the room key is an electronic card, the guest is responsible for it. Guests may not host unregistered individuals in their rooms and must notify management of any changes in the number or identity of occupants. Under no circumstances may the number of people in a room exceed the capacity assigned by the hotel.",
+  "punto7": "Guests must inform hotel management of contagious diseases, deaths, offenses, or crimes occurring on the premises to allow the hotel to take appropriate measures and report to authorities if needed.",
+  "punto8": "<strong>HOTEL OBLIGATIONS.</strong> The hotel agrees to fulfill all explicitly agreed lodging services according to the nature of the stay and established customs, and as required by applicable laws and regulations.",
+  "punto9": "<strong>HOTEL RESPONSIBILITIES.</strong> The hotel is only responsible as custodian for valuables, money, jewelry, and other belongings deposited at the front desk and received with a written receipt. These items must be stored in the safe and will only be returned to the depositor.",
+  "punto10": "In compliance with the NOM-07-TUR-2002 Official Standard, the hotel has current Civil Liability Insurance covering damage to third parties and their belongings.",
+  "punto11": "<strong>MISCELLANEOUS PROVISIONS.</strong> The hotel does not authorize access to guest rooms by any person not expressly permitted by the guest. Hotel representatives and staff may freely enter occupied rooms as needed. Authorities performing inspections must do so in strict compliance with constitutional guarantees.<br />Children must not leave their rooms alone or walk through hallways or public areas without adult supervision. The hotel has taken safety measures to prevent fires and accidents.<br />The hotel is not responsible for services or prices of third-party providers such as taxis, medical services, tour guides, or any individuals not on the hotel payroll.<br />Guests wishing to temporarily leave while keeping their room must pay in advance for the entire period of absence. If payment is not renewed after this period, the manager will proceed according to Articles III and IV of this regulation.<br />If guests are absent for more than 72 hours without notice, the hotel may cancel the lodging contract and collect the luggage, unless its value does not cover the outstanding bill. In this case, lodging may be canceled after 24 hours of absence.",
+  "punto12": "<strong>LUGGAGE AS GUARANTEE.</strong> Luggage and belongings brought into the hotel are considered the property of the registered guest and may be used to cover any debts for lodging, services, or other charges, if accepted by the hotel. These items may be retained as collateral and sold through a certified Public Broker after 30 days from the due date of the unpaid bill, as per Article IV of this regulation.",
+  "suplementarios": "Supplementary Articles",
+  "reservaciones": "<strong>RESERVATIONS.</strong> A room reservation constitutes a preliminary lodging contract, perfected when the hotel confirms in writing the guest’s request and the guest fulfills their obligations. Unless otherwise agreed, a deposit is required to confirm the reservation under the hotel’s terms. If the deposit is made by postal, bank, or other remittance, acceptance depends on room availability at the time of receipt. The hotel is free to assign rooms to other clients. If the hotel cannot honor a reservation due to circumstances beyond its control, it will attempt to arrange accommodation at another similar establishment.",
+  "cancelaciones": "<strong>CANCELLATIONS.</strong> Individual reservation cancellations made at least 24 hours in advance will receive a refund of the deposit. If the guest fails to arrive or cancel with less than 24 hours’ notice, the deposit is forfeited unless the hotel, for fairness, deems the damage to be less. For reservations of five or more rooms, a contract will be made between both parties to cover all contingencies."
+},
+"concierge": {
+  "title": "Concierge",
+  "cleaning": "Housekeeping",
+  "laundry": "Laundry",
+  "packages": "Package Pickup",
+  "locker": "Digital Access",
+  "safe": "Safe",
+  "wifi": "Wi-Fi",
+  "shower": "Shower",
+  "toiletries": "Toiletries"
+},
+"footer": {
+  "location": "Polanco, Mexico City",
+  "email": "concierge@cd648.mx",
+  "rights": "All rights reserved."
+}
+}

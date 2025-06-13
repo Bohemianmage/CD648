@@ -1,0 +1,120 @@
+/* 1) Box-sizing global */
+.custom-daypicker,
+.custom-daypicker * {
+  box-sizing: border-box;
+}
+
+/* 2) Color de marca y tipografía */
+.custom-daypicker {
+  --rdp-accent-color: #1f3142;
+  font-family: 'Maison Neue Extended', sans-serif;
+}
+
+/* 3) Hover global en botones */
+.rdp-button:hover {
+  background-color: #1f3142;
+  color: #ffffff;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+/* 4) Estructura del mes */
+.custom-daypicker .rdp-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.custom-daypicker .rdp-caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.custom-daypicker .rdp-caption_label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f3142;
+  margin: 0 0.5rem;
+}
+.custom-daypicker .rdp-button {
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-daypicker .rdp-nav {
+  margin-bottom: 0.5rem;
+}
+.custom-daypicker .rdp-months,
+.custom-daypicker .rdp-month {
+  width: 100%;
+}
+
+/* 5) Rango seleccionado */
+.custom-daypicker .rdp-day_range_start,
+.custom-daypicker .rdp-day_range_end {
+  background-color: #1f3142 !important;
+  color: white !important;
+  border-radius: 0.375rem !important;  /* mismo radio que el día intermedio */
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  line-height: 2.25rem !important;
+  text-align: center;
+  font-weight: 600;
+}
+.custom-daypicker .rdp-day_range_middle {
+  background-color: rgba(31, 49, 66, 0.1) !important;
+  color: #1f3142 !important;
+  border-radius: 0.375rem !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  line-height: 2.25rem !important;
+  text-align: center;
+  font-weight: 600;
+}
+/* 6) Día actual si no está seleccionado */
+.custom-daypicker .rdp-day_today:not(.rdp-day_range_start):not(.rdp-day_range_middle):not(.rdp-day_range_end) {
+  font-weight: 600;
+  color: #1f3142;
+}
+
+/* 7) Hover en días activos fuera del rango */
+.custom-daypicker .rdp-day:not(.rdp-day_disabled):hover {
+  background-color: rgba(31, 49, 66, 0.08);
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+/* 8) Remover enfoque azul nativo */
+.custom-daypicker .rdp-day:focus,
+.custom-daypicker .rdp-day_selected:focus,
+.custom-daypicker .rdp-day_range_end:focus,
+.custom-daypicker .rdp-day_range_end:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 9) Fechas bloqueadas */
+.rdp-day_blocked {
+  background-color: #fbeaea !important;
+  color: #9e1c1c !important;
+  pointer-events: none;
+  opacity: 0.5;
+  border-radius: 0.375rem;
+}
+
+/* 10) Borde del calendario nativo reducido y limpio */
+.custom-daypicker .rdp {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 2px !important;
+  border-radius: 8px !important;
+  border: 1px solid #d1d5db !important;
+  background-color: white !important;
+  box-shadow: none !important;
+}
