@@ -1,5 +1,3 @@
-// src/pages/AdminReservas.jsx
-
 import { useState, useEffect } from 'react';
 
 /**
@@ -10,7 +8,7 @@ export default function AdminReservas() {
   const [claveIngresada, setClaveIngresada] = useState('');
   const [accesoPermitido, setAccesoPermitido] = useState(false);
   const [reservas, setReservas] = useState([]);
-  const CLAVE_CORRECTA = 'admin123'; // puedes cambiarla aquí
+  const CLAVE_CORRECTA = 'cd648access'; // puedes cambiarla aquí
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,15 +86,6 @@ export default function AdminReservas() {
           ))}
         </tbody>
       </table>
-    </div>
-  );
-}
-            <p><strong>Adultos:</strong> {r.adultos}</p>
-            <p><strong>Niños:</strong> {r.ninos}</p>
-            <p className="text-xs text-gray-500 mt-1">{new Date(r.createdAt).toLocaleString()}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
