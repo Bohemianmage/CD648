@@ -8,12 +8,12 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: {
-        enabled: true // ✅ permite testing del manifiesto y SW en `npm run dev`
+        enabled: true
       },
       manifest: {
         name: 'CD648',
         short_name: 'CD648',
-        start_url: '/?v=2', // ✅ fuerza actualización de service worker
+        start_url: '/?v=2',
         display: 'standalone',
         background_color: '#1c1c1c',
         theme_color: '#1c1c1c',
