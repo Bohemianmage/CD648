@@ -15,8 +15,6 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
     to: selected?.to || undefined,
   });
 
-  const fechasBloqueadas = fechasOcupadas;
-
   useEffect(() => {
     const fromChanged =
       selected?.from && (!range.from || selected.from.getTime() !== range.from.getTime());
@@ -65,7 +63,7 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
         weekStartsOn={0}
         fromDate={new Date()}
         showOutsideDays
-        disabled={fechasBloqueadas}
+        disabled={fechasOcupadas} // ← Bloqueo real
         modifiers={{
           range_start: range.from || undefined,
           range_end: range.to || undefined,
@@ -77,14 +75,13 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
               return time > range.from.getTime() && time < range.to.getTime();
             }),
           today: new Date(),
-          bloqueado: fechasBloqueadas,
         }}
         modifiersClassNames={{
+          disabled: 'rdp-day_blocked', // ← Aplica clase visual a bloqueados
           range_start: 'rdp-day_range_start',
           range_end: 'rdp-day_range_end',
           range_middle: 'rdp-day_range_middle',
           today: 'rdp-day_today',
-          bloqueado: 'rdp-day_blocked',
         }}
         classNames={{
           day: 'rounded-md font-medium text-sm text-[#1f3142] hover:bg-gray-200 focus:outline-none',
