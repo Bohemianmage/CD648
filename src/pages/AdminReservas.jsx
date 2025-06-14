@@ -1,3 +1,5 @@
+// src/pages/AdminReservas.jsx
+
 import { useState, useEffect } from 'react';
 
 /**
@@ -22,7 +24,11 @@ export default function AdminReservas() {
   useEffect(() => {
     const fetchReservas = async () => {
       try {
-        const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas');
+        const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
+          headers: {
+            'x-admin-key': CLAVE_CORRECTA,
+          },
+        });
         const data = await res.json();
         setReservas(data);
       } catch (err) {
