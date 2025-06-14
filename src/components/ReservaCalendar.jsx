@@ -56,24 +56,14 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
     <div className="w-full flex items-center justify-center h-full bg-white border border-gray-200 rounded-xl shadow-md p-4">
       <DayPicker
         className="custom-daypicker reservamodal"
-        mode="single"
-        selected={undefined}
+        mode="range"
+        selected={range}
         onDayClick={onDayClick}
         numberOfMonths={1}
         weekStartsOn={0}
         fromDate={new Date()}
         showOutsideDays
-        disabled={fechasOcupadas} // ← Bloqueo real
-        modifiers={{
-          range_start: range.from || undefined,
-          range_end: range.to || undefined,
-          range_middle:
-            range.from &&
-            range.to &&
-            ((day) => {
-              const time = day.getTime();
-              return time > range.from.getTime() && time < range.to.getTime();
-            }),
+        disabled={fechasOcupadas}
           today: new Date(),
         }}
         modifiersClassNames={{
