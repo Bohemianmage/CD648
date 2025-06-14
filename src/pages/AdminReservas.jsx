@@ -8,7 +8,7 @@ export default function AdminReservas() {
   const [claveIngresada, setClaveIngresada] = useState('');
   const [accesoPermitido, setAccesoPermitido] = useState(false);
   const [reservas, setReservas] = useState([]);
-  const CLAVE_CORRECTA = 'cd648access'; // puedes cambiarla aquí
+  const CLAVE_CORRECTA = 'admin123'; // puedes cambiarla aquí
 
   const handleSubmit = (e) => {
     e.preventDefault();
