@@ -75,7 +75,8 @@
     "errorHabitacion": "Selecciona una habitación.",
     "errorFechas": "Selecciona un rango de fechas.",
     "errorConflicto": "El rango seleccionado incluye fechas ocupadas. Elige otro.",
-    "comoLlegar": "Ábreme en Google Maps"
+    "comoLlegar": "Ábreme en Google Maps",
+    "cargandoFechas": "Cargando fechas"
   },
 
 "reglamento": {

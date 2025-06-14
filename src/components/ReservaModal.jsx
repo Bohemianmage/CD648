@@ -4,7 +4,7 @@ import ReservaCalendar from './ReservaCalendar';
 import { obtenerHabitaciones } from '../utils/data';
 import { preciosMock, calcularTotal } from '../utils/precios';
 import { useReserva } from '../context/ReservaContext';
-import { parseISO, eachDayOfInterval, addDays } from 'date-fns';
+import { parseISO, eachDayOfInterval } from 'date-fns';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -28,8 +28,9 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const refCalendario = useRef(null);
   const refPago = useRef(null);
 
-  const [reservasOcupadas, setReservasOcupadas] = useState([]);
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
+  const [cacheFechas, setCacheFechas] = useState({});
+  const [loadingFechas, setLoadingFechas] = useState(false);
 
   const precioBase = preciosMock[habitacionSeleccionada] || 0;
   const noches = selectedRange?.from && selectedRange?.to
@@ -72,18 +73,25 @@ export function ReservaModal({ open, onClose, habitacion }) {
   useEffect(() => {
     const fetchReservas = async () => {
       if (!habitacionSeleccionada) return;
-      const inicio = new Date('2025-06-01').toISOString();
-      const fin = new Date('2025-07-15').toISOString();
+      setLoadingFechas(true);
+
+      // Si ya está en caché, usarla y evitar fetch
+      if (cacheFechas[habitacionSeleccionada]) {
+        setFechasOcupadas(cacheFechas[habitacionSeleccionada]);
+        setLoadingFechas(false);
+        return;
+      }
+
+      const inicio = '2020-01-01T00:00:00.000Z';
+      const fin = '2030-01-01T00:00:00.000Z';
+
       try {
-console.log('Habitación seleccionada:', habitacionSeleccionada);
         const response = await fetch(
           `https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=${inicio}&fin=${fin}`
         );
         if (response.ok) {
           const data = await response.json();
-console.log('📦 Respuesta del backend:', data);
           const limpias = data.filter(r => r.from && r.to);
-          setReservasOcupadas(limpias);
 
           const fechas = limpias.flatMap((r) => {
             try {
@@ -94,10 +102,14 @@ console.log('📦 Respuesta del backend:', data);
               return [];
             }
           });
+
           setFechasOcupadas(fechas);
+          setCacheFechas(prev => ({ ...prev, [habitacionSeleccionada]: fechas }));
         }
       } catch (err) {
         console.error('Error al obtener reservas ocupadas', err);
+      } finally {
+        setLoadingFechas(false);
       }
     };
 
@@ -122,7 +134,7 @@ console.log('📦 Respuesta del backend:', data);
     try {
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
         },
@@ -235,6 +247,10 @@ console.log('📦 Respuesta del backend:', data);
                 <p className="absolute inset-0 flex items-center justify-center text-sm text-gray-600 italic text-center">
                   {t('reserva.disponibilidad')}
                 </p>
+              </div>
+            ) : loadingFechas ? (
+              <div className="text-sm text-gray-500 italic">
+                {t('reserva.cargandoFechas')}
               </div>
             ) : (
               <div className="w-fit h-fit flex items-center justify-center">

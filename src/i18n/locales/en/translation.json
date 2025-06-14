@@ -57,7 +57,8 @@
     "errorHabitacion": "Please select a room.",
     "errorFechas": "Please select a date range.",
     "errorConflicto": "Selected range includes unavailable dates. Please choose another.",
-    "comoLlegar": "Open me in Google Maps"
+    "comoLlegar": "Open me in Google Maps",
+    "cargandoFechas": "Loading dates"
   },
 
 "reglamento": {
