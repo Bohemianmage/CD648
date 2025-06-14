@@ -128,7 +128,10 @@ export function ReservaModal({ open, onClose, habitacion }) {
     try {
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+ 	  'Content-Type': 'application/json',
+	  'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
+	},
         body: JSON.stringify({
           habitacion: habitacionSeleccionada,
           inicio: selectedRange?.from,
