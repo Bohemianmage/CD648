@@ -57,7 +57,15 @@
     "title": "CONCIERGE",
     "description": "CD648 is a lodging experience designed for comfort and efficiency in one of Mexico City’s most exclusive areas: Polanco. Our focus is on offering smart stays with digital access, autonomous lockers, and automated check-in."
   },
-
+"confirmacion": {
+  "titulo": "¡Reserva confirmada!",
+  "detalle": "Gracias por tu reserva. Recibirás un correo con los detalles y un código QR para tu check-in.",
+  "habitacion": "Habitación",
+  "fechas": "Fechas",
+  "personas": "Personas",
+  "total": "Total pagado",
+  "cerrar": "Cerrar"
+},
   "reserva": {
     "seleccionaHabitacion": "Selecciona una habitación",
     "eligeHabitacion": "-- Elige una habitación --",
