@@ -252,7 +252,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
                 <ReservaCalendar
                   selected={selectedRange}
                   onSelect={setSelectedRange}
-                  reservasOcupadas={reservasOcupadas}
+                  reservasOcupadas={fechasOcupadas}
                 />
               </div>
             )}

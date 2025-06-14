@@ -1,27 +1,21 @@
-import { useState, useEffect } from 'react';
+mport { useState, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
-import { eachDayOfInterval, parseISO } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import './ReservaCalendar.css';
 
 /**
  * ReservaCalendar.jsx
  *
- * Calendario de selección de rango de fechas, con fechas bloqueadas por habitación.
- * Visual coherente con ReservaModal.
+ * Calendario con selección de rango de fechas.
+ * Recibe las fechas bloqueadas ya procesadas como objetos Date en `fechasOcupadas`.
  */
-export default function ReservaCalendar({ selected, onSelect, reservasOcupadas = [] }) {
+export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [] }) {
   const [range, setRange] = useState({
     from: selected?.from || undefined,
     to: selected?.to || undefined,
   });
 
-  const fechasBloqueadas = reservasOcupadas.flatMap((reserva) =>
-    eachDayOfInterval({
-      start: parseISO(reserva.from),
-      end: parseISO(reserva.to),
-    })
-  );
+  const fechasBloqueadas = fechasOcupadas;
 
   useEffect(() => {
     const fromChanged =
