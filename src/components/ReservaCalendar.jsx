@@ -8,6 +8,7 @@ import './ReservaCalendar.css';
  *
  * Calendario con selección de rango de fechas.
  * Recibe las fechas bloqueadas ya procesadas como objetos Date en `fechasOcupadas`.
+ * Modo "range" permite selección visual de múltiples días.
  */
 export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [] }) {
   const [range, setRange] = useState({
@@ -33,44 +34,23 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
     setRange({ from: undefined, to: undefined });
   }, []);
 
-  const onDayClick = (day) => {
-    if (!range.from || (range.from && range.to)) {
-      setRange({ from: day, to: undefined });
-      onSelect({ from: day, to: undefined });
-      return;
-    }
-
-    const clickedTime = day.getTime();
-    const fromTime = range.from.getTime();
-
-    if (clickedTime < fromTime) {
-      setRange({ from: day, to: undefined });
-      onSelect({ from: day, to: undefined });
-    } else {
-      setRange({ from: range.from, to: day });
-      onSelect({ from: range.from, to: day });
-    }
-  };
-
   return (
     <div className="w-full flex items-center justify-center h-full bg-white border border-gray-200 rounded-xl shadow-md p-4">
       <DayPicker
         className="custom-daypicker reservamodal"
         mode="range"
         selected={range}
-        onDayClick={onDayClick}
+        onSelect={(nuevoRango) => {
+          setRange(nuevoRango);
+          onSelect(nuevoRango);
+        }}
         numberOfMonths={1}
         weekStartsOn={0}
         fromDate={new Date()}
         showOutsideDays
         disabled={fechasOcupadas}
-          today: new Date(),
-        }}
         modifiersClassNames={{
-          disabled: 'rdp-day_blocked', // ← Aplica clase visual a bloqueados
-          range_start: 'rdp-day_range_start',
-          range_end: 'rdp-day_range_end',
-          range_middle: 'rdp-day_range_middle',
+          disabled: 'rdp-day_blocked',
           today: 'rdp-day_today',
         }}
         classNames={{
