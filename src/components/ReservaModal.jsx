@@ -4,7 +4,7 @@ import ReservaCalendar from './ReservaCalendar';
 import { obtenerHabitaciones } from '../utils/data';
 import { preciosMock, calcularTotal } from '../utils/precios';
 import { useReserva } from '../context/ReservaContext';
-import { parseISO, eachDayOfInterval } from 'date-fns';
+import { parseISO, eachDayOfInterval, addDays } from 'date-fns';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -12,7 +12,6 @@ import StripeEmbeddedForm from './StripeEmbeddedForm';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Stripe key pública
 const stripePromise = loadStripe('pk_test_51RYCZiCyooQFv5CYoJPGLMgU08zDZrjir8tIPhKycK4d6UxrFzWkPcmrFmUM2afDCuimbNMYaKtCSNoNNqqwOSTX00jffGmOUy');
 
 export function ReservaModal({ open, onClose, habitacion }) {
@@ -30,6 +29,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const refPago = useRef(null);
 
   const [reservasOcupadas, setReservasOcupadas] = useState([]);
+  const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
   const precioBase = preciosMock[habitacionSeleccionada] || 0;
   const noches = selectedRange?.from && selectedRange?.to
@@ -72,66 +72,60 @@ export function ReservaModal({ open, onClose, habitacion }) {
   useEffect(() => {
     const fetchReservas = async () => {
       if (!habitacionSeleccionada) return;
+      const inicio = new Date('2025-06-01').toISOString();
+      const fin = new Date('2025-07-15').toISOString();
       try {
+console.log('Habitación seleccionada:', habitacionSeleccionada);
         const response = await fetch(
-          `https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=${selectedRange?.from?.toISOString()}&fin=${selectedRange?.to?.toISOString()}`
+          `https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=${inicio}&fin=${fin}`
         );
         if (response.ok) {
           const data = await response.json();
-
-          // Filtro defensivo para evitar errores por campos faltantes
+console.log('📦 Respuesta del backend:', data);
           const limpias = data.filter(r => r.from && r.to);
           setReservasOcupadas(limpias);
+
+          const fechas = limpias.flatMap((r) => {
+            try {
+              const start = parseISO(r.from);
+              const end = parseISO(r.to);
+              return eachDayOfInterval({ start, end });
+            } catch {
+              return [];
+            }
+          });
+          setFechasOcupadas(fechas);
         }
       } catch (err) {
         console.error('Error al obtener reservas ocupadas', err);
       }
     };
 
-    if (selectedRange?.from && selectedRange?.to) {
-      fetchReservas();
-    }
-  }, [habitacionSeleccionada, selectedRange]);
+    fetchReservas();
+  }, [habitacionSeleccionada]);
 
-  // Fechas ocupadas convertidas a objetos Date válidos
-  const fechasOcupadas = reservasOcupadas.flatMap((r) => {
-    if (!r?.from || !r?.to) return [];
-    try {
-      const start = parseISO(r.from);
-      const end = parseISO(r.to);
-      return eachDayOfInterval({ start, end });
-    } catch (err) {
-      console.warn('Reserva con formato inválido:', r);
-      return [];
-    }
-  });
-
-  // Fechas seleccionadas por el usuario
   const fechasRango = selectedRange?.from && selectedRange?.to
     ? eachDayOfInterval({ start: selectedRange.from, end: selectedRange.to })
     : [];
 
-  // Verificación de conflicto de fechas
   const hayConflicto = fechasRango.some((fecha) =>
     fechasOcupadas.some((ocupada) => ocupada.getTime() === fecha.getTime())
   );
 
-  // Scroll automático a pago si todo es válido
   useEffect(() => {
     if (reservaValida && !hayConflicto && refPago.current) {
       refPago.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [reservaValida, hayConflicto]);
 
-  // Confirmación del pago y envío de datos al backend
   const handlePagoExitoso = async () => {
     try {
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
         headers: { 
- 	  'Content-Type': 'application/json',
-	  'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
-	},
+          'Content-Type': 'application/json',
+          'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
+        },
         body: JSON.stringify({
           habitacion: habitacionSeleccionada,
           inicio: selectedRange?.from,
@@ -165,7 +159,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
           &times;
         </button>
 
-        {/* Selector visual y calendario */}
         <div className="flex flex-col lg:flex-row items-stretch gap-6 mb-6">
           <div className="flex-1 flex items-center justify-center max-w-full">
             <div className="rounded-lg p-3 sm:p-4 flex flex-col gap-3 min-h-[280px] justify-center w-full">
@@ -182,7 +175,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
               </select>
 
               <div className="flex justify-between gap-4">
-                {/* Selector de adultos */}
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-[#1f3142]">{t('reserva.adultos')}</span>
                   <div className="flex items-center gap-1">
@@ -204,7 +196,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
                   </div>
                 </div>
 
-                {/* Selector de niños */}
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium text-[#1f3142]">{t('reserva.ninos')}</span>
                   <div className="flex items-center gap-1">
@@ -227,7 +218,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
                 </div>
               </div>
 
-              {/* Imagen de la habitación */}
               {habitacionFinal && (
                 <div ref={refImagen} className="overflow-hidden rounded-xl shadow">
                   <img src={habitacionFinal.imagen} alt={habitacionFinal.nombre} className="w-full h-32 sm:h-40 object-cover" />
@@ -239,7 +229,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
             </div>
           </div>
 
-          {/* Calendario de reservas */}
           <div ref={refCalendario} className="flex-1 flex items-center justify-center">
             {!habitacionSeleccionada ? (
               <div className="relative w-full h-[320px] sm:h-[360px]">
@@ -252,14 +241,13 @@ export function ReservaModal({ open, onClose, habitacion }) {
                 <ReservaCalendar
                   selected={selectedRange}
                   onSelect={setSelectedRange}
-                  reservasOcupadas={fechasOcupadas}
+                  fechasOcupadas={fechasOcupadas}
                 />
               </div>
             )}
           </div>
         </div>
 
-        {/* Resumen y formulario de pago */}
         <div className="mt-4" ref={refPago}>
           {habitacionFinal && selectedRange?.from && selectedRange?.to && !hayConflicto && (
             <div className="bg-white border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm">
