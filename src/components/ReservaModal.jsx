@@ -193,7 +193,8 @@ const res = await fetch('https://cd648-backend-production.up.railway.app/api/res
 });
 
       if (!res.ok) throw new Error('Error al guardar la reserva.');
-
+const errTexto = await res.text();
+console.error('❌ Error del backend:', errTexto);
       setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
       setMostrarConfirmacion(true);
     } catch (err) {
