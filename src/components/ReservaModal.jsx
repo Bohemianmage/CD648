@@ -76,7 +76,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
       setNinos(0);
       setTimeout(() => {
         fetchReservas();
-      }, 300); // Retraso para asegurar que el render esté listo
+      }, 300);
     }
   }, [open, habitacion]);
 
@@ -130,7 +130,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
     try {
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
         },
@@ -147,19 +147,22 @@ export function ReservaModal({ open, onClose, habitacion }) {
 
       setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
       setMostrarConfirmacion(true);
-      onClose();
     } catch (err) {
       console.error(err);
       alert(t('reserva.errorServidor'));
     }
   };
 
-  if (!open) return mostrarConfirmacion ? (
-    <ConfirmacionModal
-      reserva={{ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos, total }}
-      onClose={() => setMostrarConfirmacion(false)}
-    />
-  ) : null;
+  if (mostrarConfirmacion) {
+    return (
+      <ConfirmacionModal
+        reserva={{ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos, total }}
+        onClose={() => setMostrarConfirmacion(false)}
+      />
+    );
+  }
+
+  if (!open) return null;
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4 overflow-y-auto">
