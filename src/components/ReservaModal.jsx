@@ -173,20 +173,24 @@ console.log('Fechas seleccionadas:', fechasRango.map(f => f.toISOString()));
         return;
       }
 
-      const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
-        },
-        body: JSON.stringify({
-          habitacion: habitacionLibre,
-          inicio: selectedRange?.from,
-          fin: selectedRange?.to,
-          adultos,
-          ninos
-        })
-      });
+const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
+  },
+  body: JSON.stringify({
+    tipoHabitacion: Number(habitacionSeleccionada),
+    inicio: selectedRange?.from,
+    fin: selectedRange?.to,
+    adultos,
+    ninos,
+    nombre: '',       // opcional si no lo usas aún
+    correo: '',
+    telefono: '',
+    total
+  })
+});
 
       if (!res.ok) throw new Error('Error al guardar la reserva.');
 
