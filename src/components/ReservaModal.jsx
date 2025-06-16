@@ -180,16 +180,13 @@ const res = await fetch('https://cd648-backend-production.up.railway.app/api/res
     'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
   },
   body: JSON.stringify({
-    tipoHabitacion: Number(habitacionSeleccionada),
-    inicio: selectedRange?.from,
-    fin: selectedRange?.to,
-    adultos,
-    ninos,
-    nombre: '',       // opcional si no lo usas aún
-    correo: '',
-    telefono: '',
-    total
-  })
+  tipoHabitacion: Number(habitacionSeleccionada),
+  inicio: selectedRange?.from,
+  fin: selectedRange?.to,
+  adultos,
+  ninos,
+  total
+})
 });
 
       if (!res.ok) throw new Error('Error al guardar la reserva.');
