@@ -15,6 +15,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const stripePromise = loadStripe('pk_test_51RYCZiCyooQFv5CYoJPGLMgU08zDZrjir8tIPhKycK4d6UxrFzWkPcmrFmUM2afDCuimbNMYaKtCSNoNNqqwOSTX00jffGmOUy');
 
+// Matriz de habitaciones físicas por tipo general
+const matrizHabitaciones = {
+  1: [1, 2, 3],
+  2: [4, 5, 6],
+  3: [7, 8],
+};
+
 export function ReservaModal({ open, onClose, habitacion }) {
   const { setReserva } = useReserva();
   const { t } = useTranslation();
@@ -39,30 +46,43 @@ export function ReservaModal({ open, onClose, habitacion }) {
     : 1;
   const total = calcularTotal(precioBase, adultos, ninos, noches);
 
+  // Nueva lógica: consulta todas las habitaciones físicas del tipo seleccionado
   const fetchReservas = async () => {
     if (!habitacionSeleccionada) return;
+
+    const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
+    if (!habitacionesTipo) return;
+
     const inicio = '2020-01-01T00:00:00.000Z';
     const fin = '2030-01-01T00:00:00.000Z';
-    try {
-      const response = await fetch(
-        `https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=${inicio}&fin=${fin}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        const limpias = data.filter(r => r.from && r.to);
-        setReservasOcupadas(limpias);
 
-        const fechas = limpias.flatMap((r) => {
-          try {
-            const start = parseISO(r.from);
-            const end = parseISO(r.to);
-            return eachDayOfInterval({ start, end });
-          } catch {
-            return [];
-          }
-        });
-        setFechasOcupadas(fechas);
-      }
+    try {
+      const respuestas = await Promise.all(
+        habitacionesTipo.map((numero) =>
+          fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
+            .then((res) => res.ok ? res.json() : [])
+            .catch(() => [])
+        )
+      );
+
+      const todasReservas = respuestas.flat().filter(r => r.from && r.to);
+      setReservasOcupadas(todasReservas);
+
+      const fechas = matrizHabitaciones[Number(habitacionSeleccionada)]?.flatMap((num) => {
+ 	 return todasReservas
+   	 .filter((r) => r.habitacion === num)
+ 	   .flatMap((r) => {
+   	   try {
+    	    const start = parseISO(r.from);
+    	    const end = parseISO(r.to);
+     	   return eachDayOfInterval({ start, end });
+    	  } catch {
+       	 return [];
+    	  }
+  	  });
+	}) || [];
+
+      setFechasOcupadas(fechas);
     } catch (err) {
       console.error('Error al obtener reservas ocupadas', err);
     }
@@ -109,10 +129,19 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const fechasRango = selectedRange?.from && selectedRange?.to
     ? eachDayOfInterval({ start: selectedRange.from, end: selectedRange.to })
     : [];
-
-  const hayConflicto = fechasRango.some((fecha) =>
-    fechasOcupadas.some((ocupada) => ocupada.getTime() === fecha.getTime())
-  );
+console.log('Tipo seleccionado:', habitacionSeleccionada);
+console.log('Habitaciones físicas:', matrizHabitaciones[Number(habitacionSeleccionada)]);
+console.log('Reservas ocupadas:', reservasOcupadas);
+console.log('Fechas seleccionadas:', fechasRango.map(f => f.toISOString()));
+  const hayConflicto = fechasRango.length > 0 &&
+    !matrizHabitaciones[Number(habitacionSeleccionada)]?.some((num) => {
+      return !reservasOcupadas.some((res) => {
+        if (res.habitacion !== num) return false;
+        const inicio = parseISO(res.from);
+        const fin = parseISO(res.to);
+        return fechasRango.some((fecha) => fecha >= inicio && fecha <= fin);
+      });
+    });
 
   const reservaValida =
     habitacionFinal &&
@@ -128,6 +157,22 @@ export function ReservaModal({ open, onClose, habitacion }) {
 
   const handlePagoExitoso = async () => {
     try {
+      const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
+
+      const habitacionLibre = habitacionesTipo.find((num) => {
+        return !reservasOcupadas.some((res) => {
+          if (res.habitacion !== num) return false;
+          const inicio = parseISO(res.from);
+          const fin = parseISO(res.to);
+          return fechasRango.some((fecha) => fecha >= inicio && fecha <= fin);
+        });
+      });
+
+      if (!habitacionLibre) {
+        alert(t('reserva.errorConflicto'));
+        return;
+      }
+
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
         headers: {
@@ -135,7 +180,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
           'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
         },
         body: JSON.stringify({
-          habitacion: habitacionSeleccionada,
+          habitacion: habitacionLibre,
           inicio: selectedRange?.from,
           fin: selectedRange?.to,
           adultos,
