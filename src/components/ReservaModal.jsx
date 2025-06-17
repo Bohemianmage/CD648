@@ -46,70 +46,67 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const total = calcularTotal(precioBase, adultos, ninos, noches);
 
   const fetchReservas = async () => {
-  if (!habitacionSeleccionada) return;
+    if (!habitacionSeleccionada) return;
 
-  const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
-  if (!habitacionesTipo) return;
+    const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
+    if (!habitacionesTipo) return;
 
-  const inicio = '2020-01-01T00:00:00.000Z';
-  const fin = '2030-01-01T00:00:00.000Z';
+    const inicio = '2020-01-01T00:00:00.000Z';
+    const fin = '2030-01-01T00:00:00.000Z';
 
-  try {
-    const respuestas = await Promise.all(
-      habitacionesTipo.map((numero) =>
-        fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
-          .then((res) => res.ok ? res.json() : [])
-          .catch(() => [])
-      )
-    );
+    try {
+      const respuestas = await Promise.all(
+        habitacionesTipo.map((numero) =>
+          fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
+            .then((res) => res.ok ? res.json() : [])
+            .catch(() => [])
+        )
+      );
 
-    const todasReservas = respuestas.flat().filter(r => r.from && r.to);
-    setReservasOcupadas(todasReservas);
+      const todasReservas = respuestas.flat().filter(r => r.from && r.to);
+      setReservasOcupadas(todasReservas);
 
-    // Construir estructura por habitación
-    const fechasPorHabitacion = {};
-    habitacionesTipo.forEach((num) => {
-      fechasPorHabitacion[num] = [];
-    });
+      const fechasPorHabitacion = {};
+      habitacionesTipo.forEach((num) => {
+        fechasPorHabitacion[num] = [];
+      });
 
-    todasReservas.forEach((res) => {
-      try {
-        const start = parseISO(res.from);
-        const end = parseISO(res.to);
-        const dias = eachDayOfInterval({ start, end });
+      todasReservas.forEach((res) => {
+        try {
+          const start = parseISO(res.from);
+          const end = parseISO(res.to);
+          const dias = eachDayOfInterval({ start, end });
 
-        if (fechasPorHabitacion[res.habitacion]) {
-          fechasPorHabitacion[res.habitacion].push(...dias);
+          if (fechasPorHabitacion[res.habitacion]) {
+            fechasPorHabitacion[res.habitacion].push(...dias);
+          }
+        } catch (err) {
+          console.warn('Error parseando reserva:', res);
         }
-      } catch (err) {
-        console.warn('Error parseando reserva:', res);
-      }
-    });
-
-    // Contar cuántas veces aparece cada fecha
-    const conteoPorFecha = {};
-    Object.values(fechasPorHabitacion).forEach((dias) => {
-      dias.forEach((dia) => {
-        const key = dia.toISOString().split('T')[0];
-        conteoPorFecha[key] = (conteoPorFecha[key] || 0) + 1;
-      });
-    });
-
-    const totalHabitacionesTipo = habitacionesTipo.length;
-
-    const fechasOcupadasReales = Object.entries(conteoPorFecha)
-      .filter(([_, count]) => count >= totalHabitacionesTipo)
-      .map(([fecha]) => {
-        const d = new Date(fecha);
-        d.setHours(0, 0, 0, 0); // Normalizar
-        return d;
       });
 
-    setFechasOcupadas(fechasOcupadasReales);
-  } catch (err) {
-    console.error('Error al obtener reservas ocupadas', err);
-  }
-};
+      const conteoPorFecha = {};
+      Object.values(fechasPorHabitacion).forEach((dias) => {
+        dias.forEach((dia) => {
+          const key = dia.toISOString().split('T')[0];
+          conteoPorFecha[key] = (conteoPorFecha[key] || 0) + 1;
+        });
+      });
+
+      const totalHabitacionesTipo = habitacionesTipo.length;
+      const fechasOcupadasReales = Object.entries(conteoPorFecha)
+        .filter(([_, count]) => count >= totalHabitacionesTipo)
+        .map(([fecha]) => {
+          const d = new Date(fecha);
+          d.setHours(0, 0, 0, 0);
+          return d;
+        });
+
+      setFechasOcupadas(fechasOcupadasReales);
+    } catch (err) {
+      console.error('Error al obtener reservas ocupadas', err);
+    }
+  };
 
   useEffect(() => {
     if (open) {
