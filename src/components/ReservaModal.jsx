@@ -15,7 +15,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const stripePromise = loadStripe('pk_test_51RYCZiCyooQFv5CYoJPGLMgU08zDZrjir8tIPhKycK4d6UxrFzWkPcmrFmUM2afDCuimbNMYaKtCSNoNNqqwOSTX00jffGmOUy');
 
-// Matriz de habitaciones físicas por tipo general
 const matrizHabitaciones = {
   1: [1, 2, 3],
   2: [4, 5, 6],
@@ -46,47 +45,71 @@ export function ReservaModal({ open, onClose, habitacion }) {
     : 1;
   const total = calcularTotal(precioBase, adultos, ninos, noches);
 
-  // Nueva lógica: consulta todas las habitaciones físicas del tipo seleccionado
   const fetchReservas = async () => {
-    if (!habitacionSeleccionada) return;
+  if (!habitacionSeleccionada) return;
 
-    const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
-    if (!habitacionesTipo) return;
+  const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
+  if (!habitacionesTipo) return;
 
-    const inicio = '2020-01-01T00:00:00.000Z';
-    const fin = '2030-01-01T00:00:00.000Z';
+  const inicio = '2020-01-01T00:00:00.000Z';
+  const fin = '2030-01-01T00:00:00.000Z';
 
-    try {
-      const respuestas = await Promise.all(
-        habitacionesTipo.map((numero) =>
-          fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
-            .then((res) => res.ok ? res.json() : [])
-            .catch(() => [])
-        )
-      );
+  try {
+    const respuestas = await Promise.all(
+      habitacionesTipo.map((numero) =>
+        fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
+          .then((res) => res.ok ? res.json() : [])
+          .catch(() => [])
+      )
+    );
 
-      const todasReservas = respuestas.flat().filter(r => r.from && r.to);
-      setReservasOcupadas(todasReservas);
+    const todasReservas = respuestas.flat().filter(r => r.from && r.to);
+    setReservasOcupadas(todasReservas);
 
-      const fechas = matrizHabitaciones[Number(habitacionSeleccionada)]?.flatMap((num) => {
- 	 return todasReservas
-   	 .filter((r) => r.habitacion === num)
- 	   .flatMap((r) => {
-   	   try {
-    	    const start = parseISO(r.from);
-    	    const end = parseISO(r.to);
-     	   return eachDayOfInterval({ start, end });
-    	  } catch {
-       	 return [];
-    	  }
-  	  });
-	}) || [];
+    // Construir estructura por habitación
+    const fechasPorHabitacion = {};
+    habitacionesTipo.forEach((num) => {
+      fechasPorHabitacion[num] = [];
+    });
 
-      setFechasOcupadas(fechas);
-    } catch (err) {
-      console.error('Error al obtener reservas ocupadas', err);
-    }
-  };
+    todasReservas.forEach((res) => {
+      try {
+        const start = parseISO(res.from);
+        const end = parseISO(res.to);
+        const dias = eachDayOfInterval({ start, end });
+
+        if (fechasPorHabitacion[res.habitacion]) {
+          fechasPorHabitacion[res.habitacion].push(...dias);
+        }
+      } catch (err) {
+        console.warn('Error parseando reserva:', res);
+      }
+    });
+
+    // Contar cuántas veces aparece cada fecha
+    const conteoPorFecha = {};
+    Object.values(fechasPorHabitacion).forEach((dias) => {
+      dias.forEach((dia) => {
+        const key = dia.toISOString().split('T')[0];
+        conteoPorFecha[key] = (conteoPorFecha[key] || 0) + 1;
+      });
+    });
+
+    const totalHabitacionesTipo = habitacionesTipo.length;
+
+    const fechasOcupadasReales = Object.entries(conteoPorFecha)
+      .filter(([_, count]) => count >= totalHabitacionesTipo)
+      .map(([fecha]) => {
+        const d = new Date(fecha);
+        d.setHours(0, 0, 0, 0); // Normalizar
+        return d;
+      });
+
+    setFechasOcupadas(fechasOcupadasReales);
+  } catch (err) {
+    console.error('Error al obtener reservas ocupadas', err);
+  }
+};
 
   useEffect(() => {
     if (open) {
@@ -106,6 +129,20 @@ export function ReservaModal({ open, onClose, habitacion }) {
       refImagen.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     fetchReservas();
+  }, [habitacionSeleccionada]);
+
+  useEffect(() => {
+    if (selectedRange?.from && selectedRange?.to && refCalendario.current) {
+      refCalendario.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    fetchReservas();
+  }, [selectedRange]);
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      fetchReservas();
+    }, 30000);
+    return () => clearInterval(intervalo);
   }, [habitacionSeleccionada]);
 
   useEffect(() => {
