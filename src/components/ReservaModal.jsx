@@ -30,8 +30,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const [habitacionSeleccionada, setHabitacionSeleccionada] = useState('');
   const [adultos, setAdultos] = useState(1);
   const [ninos, setNinos] = useState(0);
-
-  const [reservasOcupadas, setReservasOcupadas] = useState([]);
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
@@ -45,66 +43,60 @@ export function ReservaModal({ open, onClose, habitacion }) {
     : 1;
   const total = calcularTotal(precioBase, adultos, ninos, noches);
 
-  const fetchReservas = async () => {
+  const fetchFechasOcupadas = async () => {
     if (!habitacionSeleccionada) return;
 
-    const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
-    if (!habitacionesTipo) return;
-
-    const inicio = '2020-01-01T00:00:00.000Z';
-    const fin = '2030-01-01T00:00:00.000Z';
-
     try {
-      const respuestas = await Promise.all(
-        habitacionesTipo.map((numero) =>
-          fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${numero}?inicio=${inicio}&fin=${fin}`)
-            .then((res) => res.ok ? res.json() : [])
-            .catch(() => [])
-        )
-      );
+      const res = await fetch(`https://cd648-backend-production.up.railway.app/api/disponibilidad/${habitacionSeleccionada}?inicio=2025-01-01&fin=2026-01-01`);
+      const data = await res.json();
 
-      const todasReservas = respuestas.flat().filter(r => r.from && r.to);
-      setReservasOcupadas(todasReservas);
+      if (!Array.isArray(data)) {
+        console.warn('⚠️ fechasBloqueadas no está disponible:', data);
+        return;
+      }
+
+      const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)] || [];
 
       const fechasPorHabitacion = {};
       habitacionesTipo.forEach((num) => {
-        fechasPorHabitacion[num] = [];
+        fechasPorHabitacion[num] = new Set();
       });
 
-      todasReservas.forEach((res) => {
+      data.forEach(({ from, to, habitacion }) => {
+        if (!habitacionesTipo.includes(habitacion)) return;
+
         try {
-          const start = parseISO(res.from);
-          const end = parseISO(res.to);
+          const start = parseISO(from);
+          const end = parseISO(to);
           const dias = eachDayOfInterval({ start, end });
 
-          if (fechasPorHabitacion[res.habitacion]) {
-            fechasPorHabitacion[res.habitacion].push(...dias);
-          }
+          dias.forEach((d) => {
+            const clave = d.toISOString().split('T')[0];
+            fechasPorHabitacion[habitacion].add(clave);
+          });
         } catch (err) {
-          console.warn('Error parseando reserva:', res);
+          console.warn('⛔ Error procesando intervalo:', from, to, err);
         }
       });
 
-      const conteoPorFecha = {};
-      Object.values(fechasPorHabitacion).forEach((dias) => {
-        dias.forEach((dia) => {
-          const key = dia.toISOString().split('T')[0];
-          conteoPorFecha[key] = (conteoPorFecha[key] || 0) + 1;
+      const conteoFechas = {};
+      habitacionesTipo.forEach((habitacion) => {
+        fechasPorHabitacion[habitacion].forEach((fecha) => {
+          conteoFechas[fecha] = (conteoFechas[fecha] || 0) + 1;
         });
       });
 
-      const totalHabitacionesTipo = habitacionesTipo.length;
-      const fechasOcupadasReales = Object.entries(conteoPorFecha)
-        .filter(([_, count]) => count >= totalHabitacionesTipo)
+      const fechasBloqueadas = Object.entries(conteoFechas)
+        .filter(([_, count]) => count >= habitacionesTipo.length)
         .map(([fecha]) => {
-          const d = new Date(fecha);
+          const d = parseISO(fecha);
           d.setHours(0, 0, 0, 0);
           return d;
         });
 
-      setFechasOcupadas(fechasOcupadasReales);
+      setFechasOcupadas(fechasBloqueadas);
     } catch (err) {
-      console.error('Error al obtener reservas ocupadas', err);
+      console.error('Error al obtener fechas ocupadas', err);
     }
   };
 
@@ -114,46 +106,12 @@ export function ReservaModal({ open, onClose, habitacion }) {
       setSelectedRange(undefined);
       setAdultos(1);
       setNinos(0);
-      setTimeout(() => {
-        fetchReservas();
-      }, 300);
+      fetchFechasOcupadas();
     }
   }, [open, habitacion]);
 
   useEffect(() => {
-    setSelectedRange(undefined);
-    if (habitacionSeleccionada && refImagen.current) {
-      refImagen.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    fetchReservas();
-  }, [habitacionSeleccionada]);
-
-  useEffect(() => {
-    if (selectedRange?.from && selectedRange?.to && refCalendario.current) {
-      refCalendario.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    fetchReservas();
-  }, [selectedRange]);
-
-  useEffect(() => {
-    const intervalo = setInterval(() => {
-      fetchReservas();
-    }, 30000);
-    return () => clearInterval(intervalo);
-  }, [habitacionSeleccionada]);
-
-  useEffect(() => {
-    if (selectedRange?.from && selectedRange?.to && refCalendario.current) {
-      refCalendario.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    fetchReservas();
-  }, [selectedRange]);
-
-  useEffect(() => {
-    const intervalo = setInterval(() => {
-      fetchReservas();
-    }, 30000);
-    return () => clearInterval(intervalo);
+    fetchFechasOcupadas();
   }, [habitacionSeleccionada]);
 
   const habitacionFinal = habitaciones.find(
@@ -163,69 +121,45 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const fechasRango = selectedRange?.from && selectedRange?.to
     ? eachDayOfInterval({ start: selectedRange.from, end: selectedRange.to })
     : [];
-console.log('Tipo seleccionado:', habitacionSeleccionada);
-console.log('Habitaciones físicas:', matrizHabitaciones[Number(habitacionSeleccionada)]);
-console.log('Reservas ocupadas:', reservasOcupadas);
-console.log('Fechas seleccionadas:', fechasRango.map(f => f.toISOString()));
-  const hayConflicto = fechasRango.length > 0 &&
-    !matrizHabitaciones[Number(habitacionSeleccionada)]?.some((num) => {
-      return !reservasOcupadas.some((res) => {
-        if (res.habitacion !== num) return false;
-        const inicio = parseISO(res.from);
-        const fin = parseISO(res.to);
-        return fechasRango.some((fecha) => fecha >= inicio && fecha <= fin);
-      });
-    });
+
+  const hayConflicto = fechasRango.some((fecha) =>
+    fechasOcupadas.some((bloqueada) => bloqueada.getTime() === fecha.getTime())
+  );
 
   const reservaValida =
-    habitacionFinal &&
-    selectedRange?.from &&
-    selectedRange?.to &&
-    adultos >= 1;
+    habitacionFinal && selectedRange?.from && selectedRange?.to && adultos >= 1;
 
   useEffect(() => {
+
     if (reservaValida && !hayConflicto && refPago.current) {
       refPago.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, [reservaValida, hayConflicto]);
+  }, [selectedRange, reservaValida, hayConflicto]);
 
   const handlePagoExitoso = async () => {
     try {
-      const habitacionesTipo = matrizHabitaciones[Number(habitacionSeleccionada)];
-
-      const habitacionLibre = habitacionesTipo.find((num) => {
-        return !reservasOcupadas.some((res) => {
-          if (res.habitacion !== num) return false;
-          const inicio = parseISO(res.from);
-          const fin = parseISO(res.to);
-          return fechasRango.some((fecha) => fecha >= inicio && fecha <= fin);
-        });
+      const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
+        },
+        body: JSON.stringify({
+          tipoHabitacion: Number(habitacionSeleccionada),
+          inicio: selectedRange?.from,
+          fin: selectedRange?.to,
+          adultos,
+          ninos,
+          total,
+        }),
       });
 
-      if (!habitacionLibre) {
-        alert(t('reserva.errorConflicto'));
-        return;
+      if (!res.ok) {
+        const errTexto = await res.text();
+        console.error('❌ Error del backend:', errTexto);
+        throw new Error('Error al guardar la reserva.');
       }
 
-const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
-  },
-  body: JSON.stringify({
-  tipoHabitacion: Number(habitacionSeleccionada),
-  inicio: selectedRange?.from,
-  fin: selectedRange?.to,
-  adultos,
-  ninos,
-  total
-})
-});
-
-      if (!res.ok) throw new Error('Error al guardar la reserva.');
-const errTexto = await res.text();
-console.error('❌ Error del backend:', errTexto);
       setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
       setMostrarConfirmacion(true);
     } catch (err) {

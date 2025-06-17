@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { DayPicker } from 'react-day-picker';
-import { eachDayOfInterval } from 'date-fns';
+import { eachDayOfInterval, parseISO, startOfDay, isValid } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import './ReservaCalendar.css';
 
@@ -9,6 +9,15 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
     from: selected?.from || undefined,
     to: selected?.to || undefined,
   });
+
+  // 🧠 Normalizar todas las fechas recibidas
+  const fechasBloqueadas = fechasOcupadas
+    .filter((f) => f instanceof Date && isValid(f))
+    .map((f) => {
+      const date = startOfDay(f);
+      return isValid(date) ? date : null;
+    })
+    .filter(Boolean);
 
   useEffect(() => {
     const fromChanged =
@@ -32,7 +41,7 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
     if (!from || !to) return false;
     const intervaloSeleccionado = eachDayOfInterval({ start: from, end: to });
     return intervaloSeleccionado.some((dia) =>
-      fechasOcupadas.some((bloqueada) => bloqueada.getTime() === dia.getTime())
+      fechasBloqueadas.some((bloqueada) => bloqueada.getTime() === startOfDay(dia).getTime())
     );
   };
 
@@ -60,7 +69,7 @@ export default function ReservaCalendar({ selected, onSelect, fechasOcupadas = [
         weekStartsOn={0}
         fromDate={new Date()}
         showOutsideDays
-        disabled={fechasOcupadas}
+        disabled={fechasBloqueadas}
         modifiersClassNames={{
           disabled: 'rdp-day_blocked',
           today: 'rdp-day_today',
