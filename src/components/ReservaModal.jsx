@@ -162,7 +162,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
 
       setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
       setMostrarConfirmacion(true);
-      onClose();
     } catch (err) {
       console.error(err);
       alert(t('reserva.errorServidor'));
