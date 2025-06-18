@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { LocationMap } from '../components/LocationMap';
+import LocationMap from '../components/LocationMap';
 
 export function Location() {
   const { t } = useTranslation();
