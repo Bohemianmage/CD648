@@ -66,9 +66,16 @@
     "errorFechas": "Please select a date range.",
     "errorConflicto": "Selected range includes unavailable dates. Please choose another.",
     "comoLlegar": "Open me in Google Maps",
-    "cargandoFechas": "Loading dates"
+    "cargandoFechas": "Loading dates",
+    "proceder": "Proceed to payment",
+    "datosCliente": "Help us with your data",
+    "cancelar": "Return"
   },
-
+"form": {
+  "nombre": "Full name",
+  "email": "Email",
+  "telefono": "Phone number"
+},
 "reglamento": {
   "titulo": "INTERNAL LODGING REGULATIONS",
   "punto1": "<strong>LEGAL FRAMEWORK.</strong> The relationships arising from lodging services provided to guests of this establishment will be governed by Commercial Law and subsidiarily by applicable Civil Law, the General Tourism Law, its regulations, as well as the Law for the Operation of Commercial Establishments in Mexico City and the current NOM-010-TUR-2001. These provisions are considered binding, known, and accepted by the client, and customary practices in this area will also apply.",

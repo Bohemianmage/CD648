@@ -84,9 +84,16 @@
     "errorFechas": "Selecciona un rango de fechas.",
     "errorConflicto": "El rango seleccionado incluye fechas ocupadas. Elige otro.",
     "comoLlegar": "Ábreme en Google Maps",
-    "cargandoFechas": "Cargando fechas"
+    "cargandoFechas": "Cargando fechas",
+    "proceder": "Proceder al pago",
+    "datosCliente": "Ayúdanos con tu información",
+    "cancelar": "Regresar"
   },
-
+"form": {
+  "nombre": "Nombre completo",
+  "email": "Correo electrónico",
+  "telefono": "Teléfono"
+},
 "reglamento": {
         "titulo": "REGLAMENTO INTERNO PARA HOSPEDAJE",
         "punto1": "<strong>REGIMEN JURIDICO.</strong> Las relaciones que se produzcan en razón de los servicios de Hospedaje que los clientes o huéspedes de este Establecimiento, se regirán por la Legislación Mercantil y supletoriamente por la Civil aplicable, por la Ley General de Turismo, El Reglamento de la misma, así como por la Ley para el Funcionamiento de Establecimientos Mercantiles en el D.F. y la NOM-010-TUR-2001, vigente.  Estas disposiciones se consideran obligatorias, conocidas y aceptadas por el cliente y se aplicarán además los usos y prácticas comunes que rijan sobre la materia en esta plaza.",
