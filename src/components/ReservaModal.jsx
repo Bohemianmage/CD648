@@ -125,7 +125,11 @@ export function ReservaModal({ open, onClose, habitacion }) {
           adultos,
           ninos,
           total,
-          cliente,
+          cliente: {
+ 	    nombre: cliente.nombre,
+   	    email: cliente.email,
+	    telefono: cliente.telefono,
+          }
         }),
       });
       if (!res.ok) throw new Error();
