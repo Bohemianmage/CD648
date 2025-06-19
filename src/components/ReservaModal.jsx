@@ -107,7 +107,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
     }
   }, [selectedRange, reservaValida, hayConflicto]);
 
-  const handlePagoExitoso = async () => {
+ const handlePagoExitoso = async () => {
   try {
     // Validación previa de campos del cliente
     if (!cliente?.nombre || !cliente?.email || !cliente?.telefono) {
@@ -131,7 +131,8 @@ export function ReservaModal({ open, onClose, habitacion }) {
       },
     };
 
-    // Log completo del payload
+    // Logs de control
+    console.log('🧍 Cliente actual:', cliente);
     console.log('📦 Payload de reserva:', payload);
 
     // Enviar solicitud al backend
