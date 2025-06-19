@@ -124,12 +124,10 @@ export function ReservaModal({ open, onClose, habitacion }) {
       adultos,
       ninos,
       total,
-      cliente: {
-        nombre: String(cliente?.nombre || ''),
-        email: String(cliente?.email || ''),
-        telefono: String(cliente?.telefono || ''),
-      },
+      cliente: { ...cliente },
     };
+
+    console.log('🧾 JSON enviado al backend:', JSON.stringify(payload, null, 2));
 
     // Logs de control
     console.log('🧍 Cliente actual:', cliente);
