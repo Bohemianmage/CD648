@@ -66,6 +66,7 @@
     "errorFechas": "Please select a date range.",
     "errorConflicto": "Selected range includes unavailable dates. Please choose another.",
     "comoLlegar": "Open me in Google Maps",
+    "errorServidor": "Server error, please try again",
     "cargandoFechas": "Loading dates",
     "proceder": "Proceed to payment",
     "datosCliente": "Help us with your data",

@@ -109,6 +109,9 @@ export function ReservaModal({ open, onClose, habitacion }) {
 
   const handlePagoExitoso = async () => {
     try {
+
+      console.log('➡️ Enviando reserva con cliente:', cliente);
+
       const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
         method: 'POST',
         headers: {

@@ -84,6 +84,7 @@
     "errorFechas": "Selecciona un rango de fechas.",
     "errorConflicto": "El rango seleccionado incluye fechas ocupadas. Elige otro.",
     "comoLlegar": "Ábreme en Google Maps",
+    "errorServidor": "Error en el servidor, por favor intenta nuevamente",
     "cargandoFechas": "Cargando fechas",
     "proceder": "Proceder al pago",
     "datosCliente": "Ayúdanos con tu información",
