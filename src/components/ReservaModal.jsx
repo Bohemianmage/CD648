@@ -108,37 +108,53 @@ export function ReservaModal({ open, onClose, habitacion }) {
   }, [selectedRange, reservaValida, hayConflicto]);
 
   const handlePagoExitoso = async () => {
-    try {
-
-      console.log('➡️ Enviando reserva con cliente:', cliente);
-
-      const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
-        },
-        body: JSON.stringify({
-          tipoHabitacion: Number(habitacionSeleccionada),
-          inicio: selectedRange?.from,
-          fin: selectedRange?.to,
-          adultos,
-          ninos,
-          total,
-          cliente: {
-  	   nombre: String(cliente?.nombre || ''),
- 	   email: String(cliente?.email || ''),
-	   telefono: String(cliente?.telefono || ''),
-  	  }
-        }),
-      });
-      if (!res.ok) throw new Error();
-      setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
-      setMostrarConfirmacion(true);
-    } catch {
-      alert(t('reserva.errorServidor'));
+  try {
+    // Validación previa de campos del cliente
+    if (!cliente?.nombre || !cliente?.email || !cliente?.telefono) {
+      alert('Por favor completa tu nombre, correo y teléfono antes de continuar.');
+      console.warn('❗ Información de cliente incompleta:', cliente);
+      return;
     }
-  };
+
+    // Preparar payload
+    const payload = {
+      tipoHabitacion: Number(habitacionSeleccionada),
+      inicio: selectedRange?.from,
+      fin: selectedRange?.to,
+      adultos,
+      ninos,
+      total,
+      cliente: {
+        nombre: String(cliente?.nombre || ''),
+        email: String(cliente?.email || ''),
+        telefono: String(cliente?.telefono || ''),
+      },
+    };
+
+    // Log completo del payload
+    console.log('📦 Payload de reserva:', payload);
+
+    // Enviar solicitud al backend
+    const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': import.meta.env.VITE_ADMIN_KEY,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    // Validar respuesta
+    if (!res.ok) throw new Error('Error en la solicitud');
+
+    // Mostrar confirmación
+    setReserva({ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos });
+    setMostrarConfirmacion(true);
+  } catch (error) {
+    console.error('❌ Error al enviar reserva:', error);
+    alert(t('reserva.errorServidor'));
+  }
+};
 
   if (mostrarConfirmacion) {
     return (
