@@ -126,10 +126,10 @@ export function ReservaModal({ open, onClose, habitacion }) {
           ninos,
           total,
           cliente: {
- 	    nombre: cliente.nombre,
-   	    email: cliente.email,
-	    telefono: cliente.telefono,
-          }
+  	   nombre: String(cliente?.nombre || ''),
+ 	   email: String(cliente?.email || ''),
+	   telefono: String(cliente?.telefono || ''),
+  	  }
         }),
       });
       if (!res.ok) throw new Error();
