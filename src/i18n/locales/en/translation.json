@@ -26,25 +26,25 @@
         ]
       },
       "2": {
-        "name": "Suite with Terrace",
+        "name": "Master Suite",
         "description": "Includes private terrace access and a large living room.",
-        "amenities": [
-          "private_terrace",
-          "living_room",
-          "full_bathroom",
-          "king_size_bed",
-          "panoramic_view"
-        ]
-      },
-      "3": {
-        "name": "Compact Stay",
-        "description": "Ideal for short stays with all basic amenities.",
         "amenities": [
           "double_bed",
           "basic_kitchenette",
           "wifi",
           "closet",
           "work_desk"
+        ]
+      },
+      "3": {
+        "name": "Balcony Suite",
+        "description": "Ideal for short stays with all basic amenities.",
+        "amenities": [
+          "private_terrace",
+          "living_room",
+          "full_bathroom",
+          "king_size_bed",
+          "panoramic_view"
         ]
       }
     }

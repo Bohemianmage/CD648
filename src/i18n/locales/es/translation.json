@@ -26,25 +26,25 @@
         ]
       },
       "2": {
-        "name": "Suite con Terraza",
+        "name": "Suite Maestra",
         "description": "Incluye acceso a terraza privada y amplia sala de estar.",
-        "amenities": [
-          "private_terrace",
-          "living_room",
-          "full_bathroom",
-          "king_size_bed",
-          "panoramic_view"
-        ]
-      },
-      "3": {
-        "name": "Estancia Compacta",
-        "description": "Ideal para estancias cortas con todas las comodidades básicas.",
         "amenities": [
           "double_bed",
           "basic_kitchenette",
           "wifi",
           "closet",
           "work_desk"
+        ]
+      },
+      "3": {
+        "name": "Suite con Balcón",
+        "description": "Ideal para estancias cortas con todas las comodidades básicas.",
+        "amenities": [
+          "private_terrace",
+          "living_room",
+          "full_bathroom",
+          "king_size_bed",
+          "panoramic_view"
         ]
       }
     }
