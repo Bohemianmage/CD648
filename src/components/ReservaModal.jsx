@@ -160,6 +160,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
         reserva={{ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos, total }}
         setMostrarConfirmacion(false);
         onClose();
+        }}
       />
     );
   }
