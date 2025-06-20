@@ -131,12 +131,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
       }
     };
 
-    console.log('🧾 JSON enviado al backend:', JSON.stringify(payload, null, 2));
-
-    // Logs de control
-    console.log('🧍 Cliente actual:', cliente);
-    console.log('📦 Payload de reserva:', payload);
-
     // Enviar solicitud al backend
     const res = await fetch('https://cd648-backend-production.up.railway.app/api/reservas', {
       method: 'POST',
