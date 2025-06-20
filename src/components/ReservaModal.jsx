@@ -32,7 +32,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
   const [ninos, setNinos] = useState(0);
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
   const [mostrarFormularioCliente, setMostrarFormularioCliente] = useState(false);
   const [cliente, setCliente] = useState(null);
 
@@ -83,13 +82,6 @@ export function ReservaModal({ open, onClose, habitacion }) {
   };
 
   useEffect(() => {
-    useEffect(() => {
-  if (open) {
-    setTimeout(() => setFadeIn(true), 10); // pequeño retardo para que transicione correctamente
-  } else {
-    setFadeIn(false);
-  }
-}, [open]);
     if (open) {
       setHabitacionSeleccionada(habitacion?.id ? String(habitacion.id) : '');
       setSelectedRange(undefined);
@@ -280,11 +272,7 @@ useEffect(() => {
           )}
 
           {mostrarFormularioCliente && (
-            <div
-  className={`fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4 overflow-y-auto transition-opacity duration-300 ${
-    fadeIn ? 'opacity-100' : 'opacity-0 pointer-events-none'
-  }`}
->
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
               <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
                 <h2 className="text-xl font-bold mb-4 text-[#1f3142]">{t('reserva.datosCliente')}</h2>
                 <Formik
