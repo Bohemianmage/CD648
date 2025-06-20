@@ -92,6 +92,20 @@ export function ReservaModal({ open, onClose, habitacion }) {
     }
   }, [open, habitacion]);
 
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') onClose();
+  };
+
+  if (open) {
+    window.addEventListener('keydown', handleKeyDown);
+  }
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown);
+  };
+}, [open, onClose]);
+
   useEffect(() => {
     fetchFechasOcupadas();
   }, [habitacionSeleccionada]);
