@@ -19,12 +19,12 @@ import useRevealOnScroll from '../hooks/useRevealOnScroll';
 /**
  * CatalogSection.jsx
  *
- * Muestra las habitaciones con diseño vertical moderno:
- * - Imagen arriba
- * - Nombre (izquierda)
- * - Amenidades con íconos (centro)
- * - Botón "Reservar" (derecha)
- * - Reveal animado al hacer scroll
+ * Muestra las habitaciones con:
+ * - Imagen superior
+ * - Nombre
+ * - Amenidades traducidas + íconos
+ * - Botón "Reservar"
+ * - Reveal al hacer scroll
  */
 export function CatalogSection({ habitaciones, onReserveRoom }) {
   useRevealOnScroll();
@@ -37,23 +37,22 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
     setCarouselOpen(true);
   };
 
-  // Mapea íconos según amenidad
-  function getAmenityIcon(nombre, color = '#9c968b') {
-    const lower = nombre.toLowerCase();
-    const props = { className: 'w-4 h-4 align-middle', color };
+  // Diccionario: íconos por clave de amenidad
+  const iconoPorClave = {
+    full_bathroom: <Bath className="w-4 h-4 align-middle" color="#9c968b" />,
+    king_size_bed: <BedDouble className="w-4 h-4 align-middle" color="#9c968b" />,
+    double_bed: <BedDouble className="w-4 h-4 align-middle" color="#9c968b" />, // ✅ agregado
+    spacious_closet: <Layout className="w-4 h-4 align-middle" color="#9c968b" />,
+    equipped_kitchenette: <Utensils className="w-4 h-4 align-middle" color="#9c968b" />,
+    breakfast_bar: <Coffee className="w-4 h-4 align-middle" color="#9c968b" />,
+    private_terrace: <Landmark className="w-4 h-4 align-middle" color="#9c968b" />,
+    living_room: <Sofa className="w-4 h-4 align-middle" color="#9c968b" />,
+    panoramic_view: <Binoculars className="w-4 h-4 align-middle" color="#9c968b" />,
+    wifi: <Wifi className="w-4 h-4 align-middle" color="#9c968b" />,
+    work_desk: <Laptop className="w-4 h-4 align-middle" color="#9c968b" />,
+  };
 
-    if (lower.includes('bath')) return <Bath {...props} />;
-    if (lower.includes('king') || lower.includes('double bed')) return <BedDouble {...props} />;
-    if (lower.includes('closet')) return <Layout {...props} />;
-    if (lower.includes('kitchen')) return <Utensils {...props} />;
-    if (lower.includes('breakfast')) return <Coffee {...props} />;
-    if (lower.includes('terrace')) return <Landmark {...props} />;
-    if (lower.includes('living')) return <Sofa {...props} />;
-    if (lower.includes('panoramic')) return <Binoculars {...props} />;
-    if (lower.includes('wifi') || lower.includes('wi-fi')) return <Wifi {...props} />;
-    if (lower.includes('desk') || lower.includes('work')) return <Laptop {...props} />;
-    return null;
-  }
+  const getAmenityIcon = (clave) => iconoPorClave[clave] || null;
 
   return (
     <section
@@ -65,9 +64,9 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
           <div
             key={habitacion.id}
             className="flex flex-col items-start gap-6 reveal opacity-0 translate-y-8 transition-all duration-700 ease-out"
-	    style={{ transitionDelay: `${idx * 100}ms` }}
+            style={{ transitionDelay: `${idx * 100}ms` }}
           >
-            {/* Imagen superior */}
+            {/* Imagen principal */}
             <img
               src={habitacion.imagen}
               alt={habitacion.nombre}
@@ -77,27 +76,29 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
               }
             />
 
-            {/* Sección inferior */}
+            {/* Info inferior */}
             <div className="flex flex-col sm:flex-row w-full justify-between items-start gap-6">
-              {/* Título */}
+              {/* Nombre habitación */}
               <div className="w-full sm:w-1/4 text-left flex flex-col">
                 <h3 className="text-xl sm:text-2xl font-bold tracking-wide uppercase text-[#1c1c1c] mb-2">
                   {habitacion.nombre}
                 </h3>
               </div>
 
-              {/* Amenidades */}
+              {/* Amenidades traducidas */}
               <div className="w-full sm:w-2/4 flex flex-col gap-y-2 text-sm text-gray-700">
                 {(habitacion.amenidades?.length ?? 0) > 0 ? (
-                  habitacion.amenidades.map((amenidad, i) => (
+                  habitacion.amenidades.map((clave, i) => (
                     <div
-                      key={amenidad + i}
+                      key={clave + i}
                       className="inline-flex items-center gap-2 h-5 leading-5 align-middle"
                     >
                       <span className="inline-flex items-center">
-                        {getAmenityIcon(amenidad)}
+                        {getAmenityIcon(clave)}
                       </span>
-                      <span className="text-[13px] text-gray-600">{amenidad}</span>
+                      <span className="text-[13px] text-gray-600">
+                        {t(`amenities.${clave}`, clave)}
+                      </span>
                     </div>
                   ))
                 ) : (
@@ -107,7 +108,7 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
                 )}
               </div>
 
-              {/* Botón */}
+              {/* Botón de reserva */}
               <div className="w-full sm:w-1/4 flex justify-end sm:self-start mt-1">
                 <button
                   onClick={() => onReserveRoom(habitacion)}
@@ -118,7 +119,7 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
               </div>
             </div>
 
-            {/* Línea divisoria entre habitaciones */}
+            {/* Línea divisoria */}
             {idx !== habitaciones.length - 1 && (
               <hr className="border-t border-gray-200 my-12 w-full" />
             )}
@@ -126,7 +127,7 @@ export function CatalogSection({ habitaciones, onReserveRoom }) {
         ))}
       </div>
 
-      {/* Modal carrusel */}
+      {/* Carrusel modal */}
       <ImageCarouselModal
         isOpen={carouselOpen}
         images={carouselImages}

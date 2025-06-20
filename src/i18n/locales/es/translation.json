@@ -1,50 +1,82 @@
 {
-"navbar": {
-        "about": "Acerca de",
-	"pictures": "Fotos",
-        "location": "Ubicación",
-        "concierge": "Concierge",
-        "catalog": "Habitaciones",
-        "cabins": "Cabañas",
-        "rules": "Reglamento",
-        "book": "Reserva Ahora"
+  "navbar": {
+    "about": "Acerca de",
+    "pictures": "Fotos",
+    "location": "Ubicación",
+    "concierge": "Concierge",
+    "catalog": "Habitaciones",
+    "cabins": "Cabañas",
+    "rules": "Reglamento",
+    "book": "Reserva Ahora"
+  },
+  "catalog": {
+    "title": "Habitaciones",
+    "book": "Reservar ahora",
+    "noAmenities": "Sin amenidades",
+    "rooms": {
+      "1": {
+        "name": "Suite Junior",
+        "description": "Habitación elegante con cama King Size y cocina equipada.",
+        "amenities": [
+          "full_bathroom",
+          "king_size_bed",
+          "spacious_closet",
+          "equipped_kitchenette",
+          "breakfast_bar"
+        ]
       },
-"catalog": {
-  "title": "Habitaciones",
-  "book": "Reservar ahora",
-  "rooms": {
-    "1": {
-      "name": "Suite Junior",
-      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora"
-    },
-    "2": {
-      "name": "Suite Master",
-      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
-    },
-    "3": {
-      "name": "Suite con Balcón",
-      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
+      "2": {
+        "name": "Suite con Terraza",
+        "description": "Incluye acceso a terraza privada y amplia sala de estar.",
+        "amenities": [
+          "private_terrace",
+          "living_room",
+          "full_bathroom",
+          "king_size_bed",
+          "panoramic_view"
+        ]
+      },
+      "3": {
+        "name": "Estancia Compacta",
+        "description": "Ideal para estancias cortas con todas las comodidades básicas.",
+        "amenities": [
+          "double_bed",
+          "basic_kitchenette",
+          "wifi",
+          "closet",
+          "work_desk"
+        ]
+      }
     }
-  }
-},
+  },
+  "amenities": {
+    "full_bathroom": "Baño completo",
+    "king_size_bed": "Cama King Size",
+    "spacious_closet": "Clóset amplio",
+    "equipped_kitchenette": "Cocina equipada",
+    "breakfast_bar": "Barra desayunadora",
+    "private_terrace": "Terraza privada",
+    "living_room": "Sala de estar",
+    "panoramic_view": "Vista panorámica",
+    "wifi": "Wi-Fi",
+    "work_desk": "Escritorio de trabajo",
+    "double_bed": "Cama doble",
+    "basic_kitchenette": "Cocineta básica",
+    "closet": "Clóset"
+  },
   "about": {
     "title": "Acerca de CD648",
     "description": "CD648 es una experiencia de alojamiento diseñada para la comodidad y eficiencia en una de las zonas más exclusivas de la Ciudad de México: Polanco. Nuestro enfoque está en ofrecer estancias inteligentes, con acceso digital, lockers autónomos y check-in automatizado."
   },
-
-"concierge": {
-    "title": "CONCIERGE",
-    "description": "CD648 is a lodging experience designed for comfort and efficiency in one of Mexico City’s most exclusive areas: Polanco. Our focus is on offering smart stays with digital access, autonomous lockers, and automated check-in."
+  "confirmacion": {
+    "titulo": "¡Reserva confirmada!",
+    "detalle": "Gracias por tu reserva. Recibirás un correo con los detalles y un código QR para tu check-in.",
+    "habitacion": "Habitación",
+    "fechas": "Fechas",
+    "personas": "Personas",
+    "total": "Total pagado",
+    "cerrar": "Cerrar"
   },
-"confirmacion": {
-  "titulo": "¡Reserva confirmada!",
-  "detalle": "Gracias por tu reserva. Recibirás un correo con los detalles y un código QR para tu check-in.",
-  "habitacion": "Habitación",
-  "fechas": "Fechas",
-  "personas": "Personas",
-  "total": "Total pagado",
-  "cerrar": "Cerrar"
-},
   "reserva": {
     "seleccionaHabitacion": "Selecciona una habitación",
     "eligeHabitacion": "-- Elige una habitación --",
@@ -69,43 +101,43 @@
     "datosCliente": "Ayúdanos con tu información",
     "cancelar": "Regresar"
   },
-"form": {
-  "nombre": "Nombre completo",
-  "email": "Correo electrónico",
-  "telefono": "Teléfono"
-},
-"reglamento": {
-        "titulo": "REGLAMENTO INTERNO PARA HOSPEDAJE",
-        "punto1": "<strong>REGIMEN JURIDICO.</strong> Las relaciones que se produzcan en razón de los servicios de Hospedaje que los clientes o huéspedes de este Establecimiento, se regirán por la Legislación Mercantil y supletoriamente por la Civil aplicable, por la Ley General de Turismo, El Reglamento de la misma, así como por la Ley para el Funcionamiento de Establecimientos Mercantiles en el D.F. y la NOM-010-TUR-2001, vigente.  Estas disposiciones se consideran obligatorias, conocidas y aceptadas por el cliente y se aplicarán además los usos y prácticas comunes que rijan sobre la materia en esta plaza.",
-        "punto2": "<strong>REGISTRO E IDENTIFICACION DEL HUESPED.</strong> El huésped tiene la obligación ineludible de registrarse llenando personalmente la tarjeta o libro de Registro de Huéspedes.  Cuando los huéspedes sean un grupo contratado con anterioridad, su representante llenará las Tarjetas de Registro o entregará listas que reúnan los requisitos.  La empresa negará alojamiento al huésped que no cumpla con este requisito y está facultada para exigir si lo estima oportuno, la identificación del solicitante y de las personas que lo acompañan en el hospedaje.",
-        "punto3": "<strong>TIEMPO DE HOSPEDAJE.</strong> El huésped, de conformidad con la empresa, especificará en la tarjeta de registro el número de días que estará hospedado en el hotel. El costo de hospedaje se computará de las 15:01 horas de un día a las 12:00 horas del día siguiente y contando con 60 minutos de tolerancia para desocupar la habitación en su totalidad.",
-        "punto4": "<strong>OBLIGACIONES DEL HUESPED Y PAGO DE TARIFA.</strong> Es obligación del huésped, liquidar diariamente y por adelantado el servicio de hospedaje o cuando sea requerido por el hotel a juicio de la empresa, el huésped podrá garantizar el pago al hotel, mediante la firma de un pagaré (voucher) de alguna tarjeta de crédito aceptada por el hotel.  El pasajero que el día de su salida desocupe la habitación después de las 13:01 horas, establecidas en el artículo anterior, queda obligado al pago del precio del hospedaje correspondiente a otro día.  La falta de pago por parte del huésped causa la rescisión del servicio de hospedaje y el hotelero podrá hacer uso de la fuerza pública para exigir y llevar a cabo la desocupación de la habitación, pudiendo retener el equipaje en garantía en los términos previstos por el artículo 2669 del Código Civil para el D.F. Mediante levantamiento de un Inventario detallado de las pertenencias del huésped con la firma de dos empleados del hotel sindicalizados y dos empleados de confianza.  Independientemente de lo anterior, de conformidad a los dispuestos por los artículos 230 y 231, fracción IV del Código Penal vigente, para el D.F.",
-	"punto5": "Queda estrictamente prohibido a los huéspedes: <br />A) Hacer ruidos molestos, provocar altercados introducir músicos, traer animales y en general, cualquier acto que perturbe o incomode a los demás huéspedes. <br />B) Utilizar las habitaciones para juegos de azar prohibidos por la ley o celebrar reuniones que tengan por objeto alterar el orden público o desobedecer las Leyes o Reglamentos vigentes. <br />C) Usar la corriente eléctrica y los equipos mecánicos instalados en su habitación para otros fines que no sean a los que están destinados. <br />D) Deteriorar el mobiliario, la decoración o bienes de la negociación, dándoles un destino impropio al de su servicio.  <br />E) Ejecutar cualquier acto que ocasione daños o perjuicios al hotel o a los demás huéspedes, o sea contrario al decoro o al comportamiento social. La empresa se reserva el derecho de dar por terminado el servicio de hospedaje, cuando se infrinjan las prohibiciones señaladas, sin que el huésped causante de ellas tenga derecho a reducción alguna en su adeudo por el hospedaje o servicios recibidos, quedando obligado además al pago o indemnización de los daños o perjuicios que cause su proceder. <br />F)  De acuerdo a la publicación de la Ley de Protección a la Salud de los no fumadores en el Distrito Federal, dentro de las instalaciones de este establecimiento <br />G) De acuerdo a las disposiciones señaladas como medidas de higiene para la prevención del COVID-19 se deberá seguir  el protocolo de higiene del hotel y de no hacerlo, podrá ser remitido a las autoridades por delito de Peligro de Contagio según el artículo 159 del Código Penal  para el Distrito Federal. <br /><strong>ESTA ESTRICTAMENTE PROHIBIDO FUMAR.</strong>",
-	"punto6": "Si la llave del cuarto es Tarjeta Electrónica, el huésped se hará responsable de la misma.  No podrán alojar en sus habitaciones a personas diferentes de las registradas y en todo caso, darán aviso previo en la administración de cualquier variación en el número e identificación de las personas que originalmente se registraron. En ningún caso, el número de personas alojadas en cada habitación podrá ser mayor de capacidad asignada por la empresa a cada cuarto.",
-	"punto7": "Es obligación de los huéspedes informar a la administración del hotel de padecimientos o enfermedades contagiosas, fallecimiento, infracciones o delitos que acontezcan en el establecimiento y sean de su conocimiento a fin de que la empresa pueda a su vez tomar las medidas oportunas y dar cuenta inmediatamente a la autoridad cuando proceda.",
-	"punto8": "<strong>OBLIGACIONES DEL HOTEL.</strong> Esta negociación en la prestación de sus servicios de hospedaje se compromete al cumplimiento de los expresamente pactados, de acuerdo con la naturaleza del alojamiento y las reglas apegadas al uso y a la práctica existente en esta plaza y a lo que ordenen las leyes y Reglamentos aplicables.",
-	"punto9": "<strong>RESPONSABILIDADES DEL HOTEL.</strong>  La negociación responde únicamente como depositaria de los valores, dinero, alhajas y demás bienes que los huéspedes constituyan en depósito en la administración del hotel y sean recibidos en tal concepto por el personal de la negociación, autorizando al efecto y se haya otorgado por escrito el recibo correspondiente. Y en su caso se hayan guardado en la caja de seguridad.  En ningún caso se deberá entregar los valores a persona diferente al depositante.",
-	"punto10": "A fin de dar cumplimiento a lo previsto por la Norma Oficial  NOM O7 TUR 2002 , Le notificamos que le hotel cuenta con un Seguro de Responsabilidad Civil vigente, que cubre daños a terceros en relación a su bienes y personas.",
-	"punto11": "<strong>DISPOSICIONES VARIAS.</strong> La empresa no autoriza el acceso a las habitaciones ocupadas por los huéspedes de ninguna persona que no haya sido previa y expresamente autorizada por el cliente. En todo caso, se reserva el derecho de no permitir en la habitación visitas de otras personas.\n\nLas personas que ostenten la representación de la empresa del hotel o presten los servicios inherentes al hospedaje, tendrán libre acceso a los cuartos ocupados por los clientes. Las visitas, registros, inspecciones y demás trámites que dentro de las habitaciones pretendan realizar las autoridades en el cumplimiento de sus funciones, se llevarán a efecto con el más estricto apego a las garantías constitucionales.\n\nLos niños no deberán salir solos de la habitación ni circular por los pasillos o áreas y servicios públicos del hotel si no van acompañados por una persona adulta. En el establecimiento se han tomado medidas de seguridad para la prevención de incendios o siniestros.\n\nEl hotel no se hace responsable por el servicio y precio de los servicios prestados por terceros distintos a los relacionados con el servicio de hotel, como son: taxis, servicio médico, guías de turistas y en general toda aquella persona que no esté en nómina.\n\nLa persona que desee ausentarse temporalmente del establecimiento y retener a su disposición la habitación alquilada deberá cubrir por anticipado el monto del alquiler por todo el tiempo de su ausencia. Cumplido el plazo y no haciéndose el nuevo pago, el administrador procederá conforme los artículos III y IV del presente reglamento.\n\nCuando los huéspedes se ausenten por más de 72 horas sin previo aviso a la administración, podrá la negociación dar por suspendido o rescindido el contrato de hospedaje, según el caso, y proceder a recoger el equipaje conforme se previene en el siguiente artículo, salvo que el valor real del equipaje del huésped no garantice el importe de la cuenta. En esta circunstancia se podrá rescindir o suspender el hospedaje con la ausencia del huésped por más de 24 horas.",
-	"punto12": "<strong>EL EQUIPAJE COMO GARANTIA.</strong> El equipaje y demás bienes que introduzcan los huéspedes en el establecimiento se considerarán propiedad de la persona que efectúe el registro y podrán responder preferentemente de todos los adeudos que, por concepto de hospedaje, servicios complementarios y otros consumos causen las personas comprendidas en el registro respectivo, si son aceptados en su oportunidad por el hotel.  Todos estos bienes podrán ser retenidos en calidad de prenda por la negociación conforme al principio citado en el Articulo IV de esta Reglamento y en su oportunidad ejecutar la prenda, pasadas 30 días de la fecha en que se debió haber pagado la cuenta, mediante la venta del equipaje por conducto de un Corredor Público autorizado.",
-  "suplementarios": "Artículos complementarios",
-	"reservaciones": "<strong>RESERVACIONES.</strong> Constituye la \"reservación de Cuarto\", un contrato preparatorio del hospedaje que se perfecciona cuando la negociación acepta y confirma por escrito la solicitud del huésped y éste ratifica su petición cumpliendo las obligaciones que le fueron fijadas. Salvo pacto diverso, se entiende como requisitos necesarios para el perfeccionamiento del acto de reservación, el depósito por adelantado del importe del alojamiento solicitado con la anticipación y en las condiciones que establezca el hotel.  Cuando el depósito que garantiza la reservación se hace remitiendo giro postal, telegráfico, bancario o cualquier otra forma de remesa, se condiciona la aceptación del depósito al hecho de quedar alojamientos disponibles en la negociación en el mismo momento que ésta reciba dicho depósito.  La Empresa quedará en libertad de asignarlas a otros clientes.  Si por causas ajenas a la empresa del hotel esta en la imposibilidad de atender la reservación del huésped, tratará de lograr alojamiento para el solicitante en cualquier otra empresa hotelera de análoga categoría.",
-	"cancelaciones": "<strong>CANCELACIONES.</strong> El solicitante que cancele su reservación de tipo individual, tiene derecho a que le sea devuelto el importe del depósito que hubiere hecho cuando la cancelación llegue al conocimiento de la empresa del hotel con 24 horas de anticipación a la fecha comprometida. El solicitante que no hiciere uso del alojamiento en la fecha reservada, o no hiciera llegar a la empresa su cancelación con 24 horas de anticipación como mínimo, perderá en principio el importe de su depósito, salvo que, por consideraciones de equidad, la negociación estimara en una menor cuantía los perjuicios sufridos.  Para los casos de reservaciones de cinco o más habitaciones se efectuará un contrato entre ambas partes que cubra perfectamente cualquier eventualidad."
-      },
-"concierge": {
-  "title": "Concierge",
-  "cleaning": "Limpieza",
-  "laundry": "Lavanderia",
-  "packages": "Recepción de Paquetes",
-  "locker": "Acceso Digital",
-  "safe": "Caja Fuerte",
-  "wifi": "Wi-Fi",
-  "shower": "Baño",
-  "toiletries": "Artículos de Tocador"
-},
-"footer": {
-  "location": "Polanco, CDMX",
-  "email": "concierge@cd648.mx",
-  "rights": "Todos los derechos reservados."
-}
+  "form": {
+    "nombre": "Nombre completo",
+    "email": "Correo electrónico",
+    "telefono": "Teléfono"
+  },
+  "reglamento": {
+    "titulo": "REGLAMENTO INTERNO PARA HOSPEDAJE",
+    "punto1": "<strong>REGIMEN JURIDICO.</strong> Las relaciones que se produzcan en razón de los servicios de Hospedaje que los clientes o huéspedes de este Establecimiento, se regirán por la Legislación Mercantil y supletoriamente por la Civil aplicable, por la Ley General de Turismo, El Reglamento de la misma, así como por la Ley para el Funcionamiento de Establecimientos Mercantiles en el D.F. y la NOM-010-TUR-2001, vigente. Estas disposiciones se consideran obligatorias, conocidas y aceptadas por el cliente y se aplicarán además los usos y prácticas comunes que rijan sobre la materia en esta plaza.",
+    "punto2": "<strong>REGISTRO E IDENTIFICACION DEL HUESPED.</strong> El huésped tiene la obligación ineludible de registrarse llenando personalmente la tarjeta o libro de Registro de Huéspedes. Cuando los huéspedes sean un grupo contratado con anterioridad, su representante llenará las Tarjetas de Registro o entregará listas que reúnan los requisitos. La empresa negará alojamiento al huésped que no cumpla con este requisito y está facultada para exigir si lo estima oportuno, la identificación del solicitante y de las personas que lo acompañan en el hospedaje.",
+    "punto3": "<strong>TIEMPO DE HOSPEDAJE.</strong> El huésped, de conformidad con la empresa, especificará en la tarjeta de registro el número de días que estará hospedado en el hotel. El costo de hospedaje se computará de las 15:01 horas de un día a las 12:00 horas del día siguiente y contando con 60 minutos de tolerancia para desocupar la habitación en su totalidad.",
+    "punto4": "<strong>OBLIGACIONES DEL HUESPED Y PAGO DE TARIFA.</strong> Es obligación del huésped, liquidar diariamente y por adelantado el servicio de hospedaje o cuando sea requerido por el hotel a juicio de la empresa, el huésped podrá garantizar el pago al hotel, mediante la firma de un pagaré (voucher) de alguna tarjeta de crédito aceptada por el hotel. El pasajero que el día de su salida desocupe la habitación después de las 13:01 horas, establecidas en el artículo anterior, queda obligado al pago del precio del hospedaje correspondiente a otro día. La falta de pago por parte del huésped causa la rescisión del servicio de hospedaje y el hotelero podrá hacer uso de la fuerza pública para exigir y llevar a cabo la desocupación de la habitación, pudiendo retener el equipaje en garantía en los términos previstos por el artículo 2669 del Código Civil para el D.F. Mediante levantamiento de un Inventario detallado de las pertenencias del huésped con la firma de dos empleados del hotel sindicalizados y dos empleados de confianza. Independientemente de lo anterior, de conformidad a los dispuestos por los artículos 230 y 231, fracción IV del Código Penal vigente, para el D.F.",
+    "punto5": "Queda estrictamente prohibido a los huéspedes: <br />A) Hacer ruidos molestos, provocar altercados introducir músicos, traer animales y en general, cualquier acto que perturbe o incomode a los demás huéspedes. <br />B) Utilizar las habitaciones para juegos de azar prohibidos por la ley o celebrar reuniones que tengan por objeto alterar el orden público o desobedecer las Leyes o Reglamentos vigentes. <br />C) Usar la corriente eléctrica y los equipos mecánicos instalados en su habitación para otros fines que no sean a los que están destinados. <br />D) Deteriorar el mobiliario, la decoración o bienes de la negociación, dándoles un destino impropio al de su servicio. <br />E) Ejecutar cualquier acto que ocasione daños o perjuicios al hotel o a los demás huéspedes, o sea contrario al decoro o al comportamiento social. La empresa se reserva el derecho de dar por terminado el servicio de hospedaje, cuando se infrinjan las prohibiciones señaladas, sin que el huésped causante de ellas tenga derecho a reducción alguna en su adeudo por el hospedaje o servicios recibidos, quedando obligado además al pago o indemnización de los daños o perjuicios que cause su proceder. <br />F) De acuerdo a la publicación de la Ley de Protección a la Salud de los no fumadores en el Distrito Federal, dentro de las instalaciones de este establecimiento <br />G) De acuerdo a las disposiciones señaladas como medidas de higiene para la prevención del COVID-19 se deberá seguir el protocolo de higiene del hotel y de no hacerlo, podrá ser remitido a las autoridades por delito de Peligro de Contagio según el artículo 159 del Código Penal para el Distrito Federal. <br /><strong>ESTA ESTRICTAMENTE PROHIBIDO FUMAR.</strong>",
+    "punto6": "Si la llave del cuarto es Tarjeta Electrónica, el huésped se hará responsable de la misma. No podrán alojar en sus habitaciones a personas diferentes de las registradas y en todo caso, darán aviso previo en la administración de cualquier variación en el número e identificación de las personas que originalmente se registraron. En ningún caso, el número de personas alojadas en cada habitación podrá ser mayor de capacidad asignada por la empresa a cada cuarto.",
+    "punto7": "Es obligación de los huéspedes informar a la administración del hotel de padecimientos o enfermedades contagiosas, fallecimiento, infracciones o delitos que acontezcan en el establecimiento y sean de su conocimiento a fin de que la empresa pueda a su vez tomar las medidas oportunas y dar cuenta inmediatamente a la autoridad cuando proceda.",
+    "punto8": "<strong>OBLIGACIONES DEL HOTEL.</strong> Esta negociación en la prestación de sus servicios de hospedaje se compromete al cumplimiento de los expresamente pactados, de acuerdo con la naturaleza del alojamiento y las reglas apegadas al uso y a la práctica existente en esta plaza y a lo que ordenen las leyes y Reglamentos aplicables.",
+    "punto9": "<strong>RESPONSABILIDADES DEL HOTEL.</strong> La negociación responde únicamente como depositaria de los valores, dinero, alhajas y demás bienes que los huéspedes constituyan en depósito en la administración del hotel y sean recibidos en tal concepto por el personal de la negociación, autorizando al efecto y se haya otorgado por escrito el recibo correspondiente. Y en su caso se hayan guardado en la caja de seguridad. En ningún caso se deberá entregar los valores a persona diferente al depositante.",
+    "punto10": "A fin de dar cumplimiento a lo previsto por la Norma Oficial NOM O7 TUR 2002, Le notificamos que el hotel cuenta con un Seguro de Responsabilidad Civil vigente, que cubre daños a terceros en relación a sus bienes y personas.",
+    "punto11": "<strong>DISPOSICIONES VARIAS.</strong> La empresa no autoriza el acceso a las habitaciones ocupadas por los huéspedes de ninguna persona que no haya sido previa y expresamente autorizada por el cliente. En todo caso, se reserva el derecho de no permitir en la habitación visitas de otras personas. Las personas que ostenten la representación de la empresa del hotel o presten los servicios inherentes al hospedaje, tendrán libre acceso a los cuartos ocupados por los clientes. Las visitas, registros, inspecciones y demás trámites que dentro de las habitaciones pretendan realizar las autoridades en el cumplimiento de sus funciones, se llevarán a efecto con el más estricto apego a las garantías constitucionales. Los niños no deberán salir solos de la habitación ni circular por los pasillos o áreas y servicios públicos del hotel si no van acompañados por una persona adulta. En el establecimiento se han tomado medidas de seguridad para la prevención de incendios o siniestros. El hotel no se hace responsable por el servicio y precio de los servicios prestados por terceros distintos a los relacionados con el servicio de hotel, como son: taxis, servicio médico, guías de turistas y en general toda aquella persona que no esté en nómina. La persona que desee ausentarse temporalmente del establecimiento y retener a su disposición la habitación alquilada deberá cubrir por anticipado el monto del alquiler por todo el tiempo de su ausencia. Cumplido el plazo y no haciéndose el nuevo pago, el administrador procederá conforme los artículos III y IV del presente reglamento. Cuando los huéspedes se ausenten por más de 72 horas sin previo aviso a la administración, podrá la negociación dar por suspendido o rescindido el contrato de hospedaje, según el caso, y proceder a recoger el equipaje conforme se previene en el siguiente artículo, salvo que el valor real del equipaje del huésped no garantice el importe de la cuenta. En esta circunstancia se podrá rescindir o suspender el hospedaje con la ausencia del huésped por más de 24 horas.",
+    "punto12": "<strong>EL EQUIPAJE COMO GARANTIA.</strong> El equipaje y demás bienes que introduzcan los huéspedes en el establecimiento se considerarán propiedad de la persona que efectúe el registro y podrán responder preferentemente de todos los adeudos que, por concepto de hospedaje, servicios complementarios y otros consumos causen las personas comprendidas en el registro respectivo, si son aceptados en su oportunidad por el hotel. Todos estos bienes podrán ser retenidos en calidad de prenda por la negociación conforme al principio citado en el Artículo IV de esta Reglamento y en su oportunidad ejecutar la prenda, pasadas 30 días de la fecha en que se debió haber pagado la cuenta, mediante la venta del equipaje por conducto de un Corredor Público autorizado.",
+    "suplementarios": "Artículos complementarios",
+    "reservaciones": "<strong>RESERVACIONES.</strong> Constituye la \"reservación de Cuarto\", un contrato preparatorio del hospedaje que se perfecciona cuando la negociación acepta y confirma por escrito la solicitud del huésped y éste ratifica su petición cumpliendo las obligaciones que le fueron fijadas...",
+    "cancelaciones": "<strong>CANCELACIONES.</strong> El solicitante que cancele su reservación de tipo individual, tiene derecho a que le sea devuelto el importe del depósito que hubiere hecho cuando la cancelación llegue al conocimiento de la empresa del hotel con 24 horas de anticipación..."
+  },
+  "concierge": {
+    "title": "Concierge",
+    "cleaning": "Limpieza",
+    "laundry": "Lavanderia",
+    "packages": "Recepción de Paquetes",
+    "locker": "Acceso Digital",
+    "safe": "Caja Fuerte",
+    "wifi": "Wi-Fi",
+    "shower": "Baño",
+    "toiletries": "Artículos de Tocador"
+  },
+  "footer": {
+    "location": "Polanco, CDMX",
+    "email": "concierge@cd648.mx",
+    "rights": "Todos los derechos reservados."
+  }
 }
