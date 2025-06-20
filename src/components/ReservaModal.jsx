@@ -158,7 +158,8 @@ export function ReservaModal({ open, onClose, habitacion }) {
     return (
       <ConfirmacionModal
         reserva={{ habitacion: habitacionFinal, rangoFechas: selectedRange, adultos, ninos, total }}
-        onClose={() => setMostrarConfirmacion(false)}
+        setMostrarConfirmacion(false);
+        onClose();
       />
     );
   }
