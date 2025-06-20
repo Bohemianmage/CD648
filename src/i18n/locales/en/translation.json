@@ -12,24 +12,23 @@
 
 
 "catalog": {
-  "title": "Rooms",
-  "book": "Book Now",
+  "title": "Habitaciones",
+  "book": "Reservar ahora",
   "rooms": {
     "1": {
-      "name": "Junior Suite",
-      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar"
+      "name": "Suite Junior",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora"
     },
     "2": {
-      "name": "Master Suite",
-      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar\n - Work area"
+      "name": "Suite Master",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
     },
     "3": {
-      "name": "Suite with Balcony",
-      "description": "<strong>Amenities:</strong><br /><br /> - Full bathroom\n - King Size bed\n - Spacious closet\n - Equipped kitchenette\n - Breakfast bar\n - Work area"
+      "name": "Suite con Balcón",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
     }
   }
-},
-
+}
   "about": {
     "title": "About CD648",
     "description": "CD648 is a lodging experience designed for comfort and efficiency in one of Mexico City’s most exclusive areas: Polanco. Our focus is on offering smart stays with digital access, autonomous lockers, and automated check-in."
