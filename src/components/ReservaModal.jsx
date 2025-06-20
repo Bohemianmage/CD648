@@ -169,8 +169,13 @@ export function ReservaModal({ open, onClose, habitacion }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4 overflow-y-auto">
-      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-xl w-full max-w-3xl sm:max-w-4xl relative">
+    <div
+  	className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4 overflow-y-auto"
+ 	 onClick={(e) => {
+   	 if (e.target === e.currentTarget) onClose(); // solo cierra si se hace clic directamente sobre el fondo
+  	}}
+	>
+  <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-xl w-full max-w-3xl sm:max-w-4xl relative">
         <button onClick={onClose} className="absolute top-3 right-4 text-xl sm:text-2xl text-[#1f3142] hover:text-red-500">&times;</button>
         <div className="flex flex-col lg:flex-row items-stretch gap-6 mb-6">
           <div className="flex-1 flex items-center justify-center max-w-full">
