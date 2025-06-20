@@ -128,6 +128,7 @@ export function ReservaModal({ open, onClose, habitacion }) {
 	  nombre: String(cliente?.nombre || ''),
 	  email: String(cliente?.email || ''),
 	  telefono: String(cliente?.telefono || ''),
+          idioma: i18n.language,
       }
     };
 
