@@ -9,42 +9,21 @@
         "rules": "Reglamento",
         "book": "Reserva Ahora"
       },
-
-
 "catalog": {
+  "title": "Habitaciones",
+  "book": "Reservar ahora",
   "rooms": {
     "1": {
-      "name": "Junior Suite",
-      "description": "Elegant room with King-size bed and equipped kitchenette.",
-      "amenities": [
-        "Full bathroom",
-        "King Size bed",
-        "Spacious closet",
-        "Equipped kitchenette",
-        "Breakfast bar"
-      ]
+      "name": "Suite Junior",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora"
     },
     "2": {
-      "name": "Suite with Terrace",
-      "description": "Includes private terrace access and a large living room.",
-      "amenities": [
-        "Private terrace",
-        "Living room",
-        "Full bathroom",
-        "King Size bed",
-        "Panoramic view"
-      ]
+      "name": "Suite Master",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
     },
     "3": {
-      "name": "Compact Stay",
-      "description": "Ideal for short stays with all basic amenities.",
-      "amenities": [
-        "Double bed",
-        "Basic kitchenette",
-        "Wi-Fi",
-        "Closet",
-        "Work desk"
-      ]
+      "name": "Suite con Balcón",
+      "description": "<strong>Amenidades:</strong><br /><br /> - Baño completo\n - Cama King Size\n - Clóset amplio\n - Cocineta equipada\n - Barra desayunadora\n - Área de trabajo"
     }
   }
 },
