@@ -193,10 +193,6 @@ const ROOM_ID_TO_RATE_ID = {
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
-/**
- * Semana X = bloque de 7 días a partir del 1 de enero de ese año.
- * Week 1: 1–7 enero, Week 2: 8–14 enero, etc.
- */
 export function getRatesWeekIndex(date) {
   const year = date.getFullYear();
   const dayDate = new Date(year, date.getMonth(), date.getDate());
@@ -210,20 +206,11 @@ export function getRatesWeekIndex(date) {
   return rawWeek;
 }
 
-/**
- * Determina si una fecha usa tarifa de fin de semana.
- * Regla actual:
- *   - Domingo (0) a jueves (4)  → weekday
- *   - Viernes (5) y sábado (6) → weekend
- */
 export function isWeekend(date) {
   const day = date.getDay(); // 0=domingo .. 6=sábado
   return day === 5 || day === 6;
 }
 
-/**
- * Obtiene la tarifa base por persona para una noche específica.
- */
 export function getNightBaseRate(tipoHabitacionId, fecha) {
   // Mapeo de ID lógico -> ID de tabla de tarifas
   const rateId = ROOM_ID_TO_RATE_ID[tipoHabitacionId] ?? tipoHabitacionId;
@@ -240,17 +227,6 @@ export function getNightBaseRate(tipoHabitacionId, fecha) {
   return typeof base === 'number' ? base : 0;
 }
 
-// -----------------------------------------------------------------------------
-// 4) Cálculo del total por rango de fechas
-// -----------------------------------------------------------------------------
-
-/**
- * Calcula el total de la reserva sumando noche por noche según:
- * - tipoHabitacionId: ID lógico usado en tu front (1, 2, 3, etc.).
- * - fechaInicio: Date (check-in).
- * - fechaFin: Date (check-out, NO se cobra esa noche).
- * - adultos, ninos: número de personas; niño = 50% del adulto.
- */
 export function calcularTotalPorRangoFechas({
   tipoHabitacionId,
   fechaInicio,
@@ -280,7 +256,7 @@ export function calcularTotalPorRangoFechas({
   while (cursor < fin) {
     const base = getNightBaseRate(tipoHabitacionId, cursor);
     const costoAdultos = adultos * base;
-    const costoNinos = ninos * base * 0.5;
+    const costoNinos = ninos * base;
     total += costoAdultos + costoNinos;
 
     cursor.setDate(cursor.getDate() + 1);
