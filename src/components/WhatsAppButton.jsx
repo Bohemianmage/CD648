@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
 
       {/* Botón de WhatsApp */}
       <a
-        href="https://wa.me/52140582192"
+        href="https://wa.me/5215540582192"
         target="_blank"
         rel="noopener noreferrer"
         className="w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg animate-bounce"
